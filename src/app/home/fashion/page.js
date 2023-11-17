@@ -21,8 +21,6 @@ const HomeFashion = () => {
     const transparentProduct = ProductsData.filter(data => slugify(data.pCate) === pageCategory && data.thumbnailTransparent === true);
     const exploreProduct = mapInSlices(fashionProduct, 4);
 
-    console.log("hht", process.env.NEXT_PUBLIC_APP_API_URL)
-
     return ( 
         <>
         <HeaderTwo />
