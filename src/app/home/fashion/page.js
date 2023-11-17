@@ -1,24 +1,14 @@
 'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import Section from "@/components/elements/Section";
 import SectionTitle from "@/components/elements/SectionTitle";
 import SlickSlider from "@/components/elements/SlickSlider";
 import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderTwo from "@/components/header/HeaderTwo";
 import BannerThree from "@/components/hero-banner/BannerThree";
-import NewsLetter from "@/components/newsletter/NewsLetter";
-import ServiceOne from "@/components/services/ServiceOne";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import ProductsData from "@/data/Products";
 import { slugify, mapInSlices } from '@/utils';
-import ProductTwo from '@/components/product/ProductTwo';
-import TestimonialOne from '@/components/testimonial/TestimonialOne';
 import ProductOne from '@/components/product/ProductOne';
-import ProductSeven from '@/components/product/ProductSeven';
-import ProductFour from '@/components/product/ProductFour';
-import PosterOne from '@/components/poster/PosterOne';
-import CategoryElectronics from '@/components/category/CategoryElectronics';
 import PosterTwo from '@/components/poster/PosterTwo';
 import CategoryFurniture from '@/components/category/CategoryFurniture';
 
