@@ -13,9 +13,9 @@ const CategoryFurniture = () => {
   const split = pathname.split("/");
   const pageCategory = split[split.length - 1];
   
-  const findCategory = Category.filter(
-    (data) => slugify(data.cate) === pageCategory
-    );
+  // const findCategory = Category.filter(
+  //   (data) => slugify(data.cate) === pageCategory
+  //   );
     // const furniture = findCategory[0].subCate;
 
   return (
