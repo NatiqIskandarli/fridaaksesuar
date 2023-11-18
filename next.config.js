@@ -5,7 +5,7 @@ const nextConfig = {
     return config;
   },
   images : {
-    domains : ["localhost"]
+    domains : ["localhost","fridas3new.s3.amazonaws.com"]
   }
 }
 
