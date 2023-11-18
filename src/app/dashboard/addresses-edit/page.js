@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const UserAddress = () => {
     const [unvan, setUnvan] = useState('')
     //fake userid
-    const userId = 1
+    const userId = localStorage.getItem("userid")
 
     useEffect(()=>{
         const fetchOrders = async () =>{

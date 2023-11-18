@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
-import { logIn } from "@/store/slices/authSlice";
+import { DaxilOl } from "@/store/slices/authSlice";
 import { login } from "@/http/auth";
 
 const SignIn = () => {
@@ -29,11 +29,14 @@ const SignIn = () => {
 
         try {
             const dataResult = await login(data.email, data.password)
+            if(dataResult){    
+                localStorage.setItem("userid",dataResult.userid)            
+                dispatch(DaxilOl(dataResult.userid));
+                router.push('/dashboard');
+            }
             // user.setUser(user)
             // user.setIsAuth(true)
-            dispatch(logIn(data.email));
             //navigate(SHOP_ROUTE)
-            router.push('/dashboard');
         } catch (error) {
             //console.log(error)
             setLoginError(true);
@@ -56,12 +59,12 @@ const SignIn = () => {
                 <form className="singin-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="email" className="form-control" {...register('email', { required: true })} defaultValue="admin@email.com" />
+                        <input type="email" className="form-control" {...register('email', { required: true })} />
                         {errors.email && <p className="error">Email is required.</p>}
                     </div>
                     <div className="form-group">
                         <label>Şifrə</label>
-                        <input type="password" className="form-control" {...register('password', { required: true, minLength: 4})} defaultValue={1234} />
+                        <input type="password" className="form-control" {...register('password', { required: true, minLength: 4})} />
                         {errors.password && <p className="error">Şifrəni qeyd edin.</p>}
                     </div>
                     <div className="form-group d-flex align-items-center justify-content-between">

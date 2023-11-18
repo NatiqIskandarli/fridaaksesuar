@@ -6,6 +6,7 @@ const authSlice = createSlice({
     initialState: {
         login: false,
         userData: {},
+        userid : 0
     },
     reducers: {
         logIn(state, action) {
@@ -14,11 +15,14 @@ const authSlice = createSlice({
                 state.userData = findUser[0];
                 state.login = true;
             } 
+        },
+        DaxilOl(state, action){
+            state.userid = action.payload
         }
     }
 });
 
-export const { logIn } = authSlice.actions;
+export const { logIn,DaxilOl } = authSlice.actions;
 
 export default authSlice.reducer;
 

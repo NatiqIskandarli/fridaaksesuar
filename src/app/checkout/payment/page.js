@@ -5,7 +5,7 @@ import Section from "@/components/elements/Section";
 import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderFive from "@/components/header/HeaderFive";
 import HeaderTwo from "@/components/header/HeaderTwo";
-import { checkOutRegister } from '@/http/auth';
+import { checkOutRegister, checkOutSade } from '@/http/auth';
 
 const OrderPayment = () => {
     const router = useRouter();
@@ -32,9 +32,15 @@ const OrderPayment = () => {
                 totalQuantity: latestOrder.totalQuantity,
                 orderDate: latestOrder.orderDate,
             }
-            console.log(fullData)
-            const payAndRegister = await checkOutRegister(fullData)
-            console.log(payAndRegister)
+            //console.log(fullData)
+            const getuse = localStorage.getItem("userid")
+            if(getuse){
+                const payAndRegister = await checkOutSade(fullData)
+            }else{
+                const payAndRegister = await checkOutRegister(fullData)
+            }
+            
+            //console.log(payAndRegister)
 
             router.push('checkout/order-received');
 

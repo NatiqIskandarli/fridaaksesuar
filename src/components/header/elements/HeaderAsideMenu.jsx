@@ -7,12 +7,17 @@ import { getListCategory, getListSubCategory} from "../../../http/category";
 
 const HeaderAsideMenu = () => {
   const [asideMenuToggler, setAsideMenuToggler] = useState(false);
+  const [asideMenuTogglerMob, setAsideMenuTogglerMob] = useState('');
   const [windowWidth, setWindowWidth] = useState();
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
 
   const asideMenuHandler = () => {
     setAsideMenuToggler(!asideMenuToggler);
+  }
+
+  const openMenu = (index) => {
+    setAsideMenuTogglerMob(index);
   }
 
   const asideMobileMenuHandler = () => {
@@ -101,7 +106,8 @@ const HeaderAsideMenu = () => {
             {subCategory.map((menuItem, index) => (
               <li key={index}>
                 <Link
-                  href=''
+                  href='#'
+                  onClick={()=>openMenu(index)}
                   className={`nav-link ${
                     menuItem.hasChildren ? "has-megamenu" : ""
                   }`}
@@ -118,7 +124,7 @@ const HeaderAsideMenu = () => {
                   <span className="menu-text">{menuItem.title}</span>
                 </Link>
 				        {menuItem.hasChildren && (
-                <div className="department-megamenu">
+                <div className={`department-megamenu ${asideMenuTogglerMob == index ? "openMob" : ""}`}>
                   <div className="department-megamenu-wrap">
                     <div className="department-submenu-wrap">
                      

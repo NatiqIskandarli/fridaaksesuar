@@ -37,6 +37,38 @@ const Checkout = () => {
             //checkout
             //sonra asagidakini cagir
 
+            const getuse = localStorage.getItem("userid")
+            if(getuse){
+
+            const fullData = {
+                billingAddress: {
+                    firstName: data.firstName,
+                    lastName: data.lastName,                    
+                    street1: data.street1,
+                    city: data.city,
+                    phone: data.phone,
+                    password: data.password,
+                    email: data.email,                    
+                    payment: "Card"
+                },
+                sponsorId: getuse,    
+                items: cartProducts.cartItems,
+                totalAmount: cartProducts.cartTotalAmount,
+                totalQuantity: cartProducts.cartQuantityTotal,
+                orderDate: new Date().toLocaleString(),
+            }
+            try {
+                // const payAndRegister = await checkOutRegister(fullData)
+                // console.log(payAndRegister)
+
+                router.push('checkout/payment');
+                dispatch(addToOrder(fullData));
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        }else{
             const fullData = {
                 billingAddress: {
                     firstName: data.firstName,
@@ -64,6 +96,7 @@ const Checkout = () => {
             } catch (error) {
                 console.log(error)
             }
+        }
             
 
             
@@ -78,6 +111,16 @@ const Checkout = () => {
                 {cartProducts.cartItems.length > 0 ? 
                 <form onSubmit={handleSubmit(checkoutFormHandler)}>
                     <div className="row">
+                        
+                        
+                        
+                        
+                        
+                        {localStorage.getItem("userid") ? "" : 
+                        
+                        
+                        
+                        
                         <div className="col-lg-6">
                             <div className="axil-checkout-billing">
                                 <h4 className="title mb--40">Ödəniş məlumatlarınız</h4>
@@ -234,6 +277,25 @@ const Checkout = () => {
                                 </div>
                             </div>
                         </div>
+
+
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <div className="col-lg-6">
                             <div className="axil-order-summery order-checkout-summery">
                                 <h5 className="title mb--20">Sizin sifarişiniz</h5>
@@ -256,7 +318,7 @@ const Checkout = () => {
                                                 <td>Məbləğ</td>
                                                 <td>{cartProducts.cartTotalAmount} AZN</td>
                                             </tr>
-                                            <tr className="order-shipping">
+                                            {/* <tr className="order-shipping">
                                                 <td colSpan={2}>
                                                     <div className="shipping-amount">
                                                         <span className="title">Çatdırılma</span>
@@ -267,7 +329,7 @@ const Checkout = () => {
                                                         <label htmlFor="radio2">Ödənişli : 5 azn</label>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> */}
                                             <tr className="order-total">
                                                 <td>Cəmi məbləğ</td>
                                                 <td className="order-total-amount">{cartProducts.cartTotalAmount} AZN</td>

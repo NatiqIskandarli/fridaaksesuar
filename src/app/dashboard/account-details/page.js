@@ -7,7 +7,7 @@ import { getMyPass,saveMyPass } from "@/http/auth";
 const AccountDetails = () => {
     const router = useRouter();
     //fake userid
-    const userId = 1
+    const userId = localStorage.getItem("userid")
     const [parol, setParol] = useState('');
     const {
         register,
@@ -52,8 +52,7 @@ const AccountDetails = () => {
                 <div className="row">
                     <div className="col-lg-6">
                         <div className="form-group">
-                            <label>Ad/Soyad</label>
-                            
+                            <label>Ad/Soyad</label>                            
                         </div>
                     </div>                   
                     <div className="col-12">

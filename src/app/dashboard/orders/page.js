@@ -8,7 +8,7 @@ const UserOrders = () => {
 
     const [sifarisler, setSifarisler] = useState([])
     //fake userid
-    const userid = 1
+    const userid = localStorage.getItem("userid")
 
     
 

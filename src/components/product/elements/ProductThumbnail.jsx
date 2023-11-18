@@ -27,7 +27,7 @@ const ProductThumbnail = (props) => {
             ""
           )}
         </Link>
-        {props.productThumb.salePrice && props.discountLabel && (
+        {props.productThumb.salePrice !== props.productThumb.price && props.discountLabel && (
           <ProductDiscountLabel discount={props.productThumb} />
         )}
 		{props.hoverItems &&

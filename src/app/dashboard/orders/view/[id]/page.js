@@ -8,8 +8,8 @@ const OrderView = ({params}) => {
     const [toplam, setToplam] = useState([])
     const [unvan, setUnvan] = useState('')
     //fake userid
-    const userId = 1
-    const catdirilma = 5
+    const userId = localStorage.getItem("userid")
+    
 
     useEffect(()=>{
         const fetchOrders = async () =>{
@@ -49,14 +49,10 @@ const OrderView = ({params}) => {
                         <tr>
                             <th>Cəmi:</th>
                             <th>{toplam.totalAmount}</th>
-                        </tr>
-                        <tr>
-                            <th>Çatdırılma:</th>
-                            <th>{catdirilma}</th>
-                        </tr>
+                        </tr>                      
                         <tr>
                             <th>Toplam məbləğ:</th>
-                            <th>{toplam.totalAmount + catdirilma} AZN</th>
+                            <th>{toplam.totalAmount} AZN</th>
                         </tr>
                     </tfoot>
                 </table>

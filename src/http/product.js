@@ -5,6 +5,11 @@ export const getAllProductsBySub = async(id)=>{
     return data
 }
 
+export const getAllProducts = async()=>{
+    const {data} = await $host.get(`api/product/getListProducts`)
+    return data
+}
+
 export const getOneProduct = async(id)=>{
     const {data} = await $host.get(`api/product/getOneProduct/${id}`)
     return data

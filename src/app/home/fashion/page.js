@@ -12,6 +12,7 @@ import { slugify, mapInSlices } from '@/utils';
 import ProductOne from '@/components/product/ProductOne';
 import PosterTwo from '@/components/poster/PosterTwo';
 import CategoryFurniture from '@/components/category/CategoryFurniture';
+import { getAllProducts } from "@/http/product";
 
 const HomeFashion = () => {
     // const pathname = usePathname(); 
@@ -23,7 +24,7 @@ const HomeFashion = () => {
     useEffect(()=>{
         const fetchProd = async () =>{
             try {
-                const resultProd = await getAllProductsBySub(1)
+                const resultProd = await getAllProducts()                
                 setFilterProduct(resultProd)
             } catch (error) {
                 console.log(error)
@@ -34,7 +35,7 @@ const HomeFashion = () => {
     },[])
 
 
-    const fashionProduct = filterProduct.filter(data => slugify(data.subCategoryId) === pageCategory);
+    const fashionProduct = filterProduct;
     const transparentProduct = ProductsData.filter(data => slugify(data.pCate) === pageCategory && data.thumbnailTransparent === true);
     const exploreProduct = mapInSlices(fashionProduct, 4);
 

@@ -25,6 +25,12 @@ export const checkOutRegister = async(fullData)=>{
     return data
 }
 
+export const checkOutSade = async(fullData)=>{
+    const {data} = await $host.post('api/product/checkOutSade',{fullData})
+    return data
+}
+
+
 
 export const getBalansById = async(userId)=>{
     const {data} = await $host.get(`api/profit/getBalansById/${userId}`)
@@ -109,7 +115,7 @@ export const login = async (email, password)=>{
     const {data} = await $host.post('api/user/login', {email, password})
     localStorage.setItem('fridtoken', data.token)
     const decodedToken = parseJwt(data.token);
-    return decodedToken
+    return {decodedToken, userid : data.userid}
 }
 export const check = async ()=>{ 
     const {data} = await $authHost.get('api/user/auth')
