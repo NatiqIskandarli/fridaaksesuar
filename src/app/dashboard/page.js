@@ -8,12 +8,13 @@ const Dashboard = () => {
     const [balans, setBalans] = useState('')
     const [vezife, setVezife] = useState('')
     const [ozemail, setOzEmail] = useState('')
+    const [userIdd, setUserIdd] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingIki, setIsLoadingIki] = useState(false)
     const [qrupOzu, setQrupOzu] = useState([])
     const [altQrup, setAltQrup] = useState([])
     const [altIkiQrup, setAltIkiQrup] = useState([])
-    const getuserId = useSelector((state) => state.auth.userid);
+    
 
     const altQrupCagir = async (id,email)=>{
         setIsLoadingIki(true)
@@ -25,7 +26,7 @@ const Dashboard = () => {
         }
     }
     
-    const userid = getuserId
+    
 
     useEffect(()=>{
         const fetchProfit = async () =>{
@@ -34,12 +35,13 @@ const Dashboard = () => {
             //     getQrup(userid),
             // ])    
             // setBalans(getProfit.earnedMoney)
-            // setVezife(getProfit.levelName)      
+            // setVezife(getProfit.levelName)
             
             
-            const newuser = userid === 0 ? localStorage.getItem("userid") : userid
+            const userId = localStorage.getItem("userid")            
+            setUserIdd(userId)
 
-            const getQrupList =  await getQrup(newuser)
+            const getQrupList =  await getQrup(userId)
             if(getQrupList){
                 setIsLoading(true)
             }
@@ -47,7 +49,7 @@ const Dashboard = () => {
             setAltQrup(getQrupList.downlineUsers)
         }
         fetchProfit()
-    },[userid])
+    },[userIdd])
 
 
 

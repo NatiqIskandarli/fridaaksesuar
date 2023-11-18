@@ -114,8 +114,8 @@ export const getQrup = async(userId)=>{
 export const login = async (email, password)=>{
     const {data} = await $host.post('api/user/login', {email, password})
     localStorage.setItem('fridtoken', data.token)
-    const decodedToken = parseJwt(data.token);
-    return {decodedToken, userid : data.userid}
+    //const decodedToken = parseJwt(data.token);
+    return {decodedToken : data.userid, userid : data.userid}
 }
 export const check = async ()=>{ 
     const {data} = await $authHost.get('api/user/auth')

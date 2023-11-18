@@ -30,7 +30,8 @@ const SignIn = () => {
         try {
             const dataResult = await login(data.email, data.password)
             if(dataResult){    
-                localStorage.setItem("userid",dataResult.userid)            
+                localStorage.setItem("userid", dataResult.userid)    
+                console.log(dataResult.userid)        
                 dispatch(DaxilOl(dataResult.userid));
                 router.push('/dashboard');
             }
