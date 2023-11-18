@@ -32,24 +32,31 @@ const FashionSlider = [
         title: "Bloosom Smat Watch",
         subTitle: "Smartwatch",
         subIcon: "fal fa-watch",
-        thumb: "/images/slide/slide11.png"
+        thumb: "/images/slide/slide101.png"
     },
     {
         title: "Delux Brand Watch",
         subTitle: "Smartwatch",
         subIcon: "fal fa-watch",
-        thumb: "/images/product/product-46.png"
+        thumb: "/images/slide/slide12.png"
     },
     {
         title: "Delux Brand Watch",
         subTitle: "Smartwatch",
         subIcon: "fal fa-watch",
-        thumb: "/images/product/product-40.png"
+        thumb: "/images/slide/slide13.png"
     }
 ]
 
 const FashionSliderProduct = {
     thumbnail: "/images/slide/slide_right_11.png",
+    title: "Yantiti Leather Bags",
+    price: "$29.99"
+
+}
+
+const FashionSliderProductIki = {
+    thumbnail: "/images/slide/slide_right_12.png",
     title: "Yantiti Leather Bags",
     price: "$29.99"
 
@@ -90,4 +97,4 @@ const FurnitureSlider = [
     },
 ]
 
-export { ElectronicsSlider, NftSlider, FashionSlider, JewellerySlider, FurnitureSlider, FashionSliderProduct,FashionSliderProductSpec };
+export { ElectronicsSlider, NftSlider, FashionSlider, JewellerySlider, FurnitureSlider, FashionSliderProduct,FashionSliderProductSpec,FashionSliderProductIki };

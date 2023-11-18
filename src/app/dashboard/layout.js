@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import Breadcrumb from "@/components/breadcrumb/Breadcrumb";
 import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderFive from "@/components/header/HeaderFive";
@@ -16,6 +16,13 @@ const DahsboardLayout = ({children}) => {
     const pathname = usePathname();
     const split = pathname.split("/");
     const pageSlug = split[split.length - 1];
+
+    const router = useRouter();
+
+    const logOut = () =>{
+        localStorage.removeItem('fridtoken')
+        router.push('/sign-in');
+    }
     
     return ( 
         <>
@@ -28,7 +35,7 @@ const DahsboardLayout = ({children}) => {
                         <div className="axil-dashboard-author">
                             <div className="media">                             
                                 <div className="media-body">
-                                    <h5 className="title mb-0">Salam {userInfo.name}</h5>                                    
+                                    {/* <h5 className="title mb-0">Salam {userInfo.name}</h5>                                     */}
                                 </div>
                             </div>
                         </div>
@@ -42,9 +49,9 @@ const DahsboardLayout = ({children}) => {
                                                     <i className={data.icon} />{data.name}
                                                 </Link>
                                             ))}
-                                            <Link href="/sign-in" className="nav-item nav-link">
+                                            <button onClick={logOut} className="nav-item nav-link">
                                                 <i className="fal fa-sign-out" />Çıxış
-                                            </Link>
+                                            </button>
                                         </div>
                                     </nav>
                                 </aside>

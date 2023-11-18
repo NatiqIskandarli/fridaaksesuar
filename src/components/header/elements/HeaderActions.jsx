@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProductSearchModal from "@/components/header/elements/ProductSearchModal";
 import MiniCart from "@/components/header/elements/MiniCart";
@@ -9,6 +9,7 @@ import { mobileMenu } from "@/store/slices/menuSlice";
 const HeaderActions = (props) => {
   const [searchToggle, setSearchToggle] = useState(false);
   const [accountDropdown, setaccountDropdown] = useState(false);
+  const [isLogin, setIsLogin] = useState(false)
 
   const dispatch = useDispatch();
   const getProducts = useSelector((state) => state.productData);
@@ -26,6 +27,15 @@ const HeaderActions = (props) => {
 const mobileMneuHandler = (data) => {
   dispatch(mobileMenu(data))
 }
+
+useEffect(()=>{
+  const fridtok = localStorage.getItem("fridtoken")
+  if(fridtok){
+    setIsLogin(true)
+  }
+},[isLogin])
+
+
   return (
     <div className="header-action">
       <ul className="action-list">
@@ -60,9 +70,15 @@ const mobileMneuHandler = (data) => {
             <i className="far fa-user" />            
           </button> */}
           <div className="text-center">
-              <Link href="#" onClick={accountDropdownToggler}>
-                Daxil ol  
+            {isLogin === true && 
+                <Link href="/dashboard">Şəxsi kabinet</Link>
+            }
+            {isLogin === false && 
+                <Link href="/sign-in">
+                Daxil ol   
               </Link>
+            }
+              
                {/* / 
               <Link href="/sign-up">
                  Qeydiyyat

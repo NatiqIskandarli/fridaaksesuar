@@ -15,12 +15,12 @@ const PrivacyPolicy = async() => {
         <>
         <HeaderTwo />
         <main className="main-wrapper">
-        <Breadcrumb activeItem="Pages" title="Privacy Policy" />
+        <Breadcrumb activeItem="Qaydalar" title="ŞƏRTLƏR / QAYDALAR" />
         <Section>
             <div className="row">
                 <div className="col-lg-10">
                     <div className="axil-privacy-policy">
-                        <span className="policy-published">This Privacy policy was published on {getPrivacy.date}.</span>
+                        <span className="policy-published">ŞƏRTLƏR / QAYDALAR</span>
                         <div dangerouslySetInnerHTML={{__html: getPrivacy.privacyContent}}></div>
                     </div>
                 </div>

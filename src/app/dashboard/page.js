@@ -11,7 +11,7 @@ const Dashboard = () => {
     //fake userid
     const userid = 1
 
-    useEffect(()=>{
+    // useEffect(()=>{
         const fetchProfit = async () =>{
             // const [getProfit,getQrupList] = await Promise.all([
             //     getBalansById(userid),
@@ -20,11 +20,12 @@ const Dashboard = () => {
             // setBalans(getProfit.earnedMoney)
             // setVezife(getProfit.levelName)            
             const getQrupList =  await getQrup(userid)
+            console.log(getQrupList)
             setQrupOzu(getQrupList.sponsorunOzu)
             setAltQrup(getQrupList.downlineUsers)
         }
         fetchProfit()
-    },[userid])
+    // },[userid])
 
 
 

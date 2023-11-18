@@ -1,5 +1,5 @@
 'use client';
-import { FashionSlider, FashionSliderProduct,FashionSliderProductSpec } from "@/data/Slider";
+import { FashionSlider, FashionSliderProduct,FashionSliderProductSpec,FashionSliderProductIki } from "@/data/Slider";
 import SlickSlider from "../elements/SlickSlider";
 import Link from "next/link";
 import Image from "next/image";
@@ -66,7 +66,7 @@ const BannerThree = () => {
                 <div className="slider-product-box">
                   <div className="product-thumb">
                     <Image 
-                    src={FashionSliderProduct.thumbnail}
+                    src={FashionSliderProductIki.thumbnail}
                     width={351}
                     height={236}
                     alt="Product"
@@ -81,7 +81,7 @@ const BannerThree = () => {
                 <div className="slider-product-box" style={{marginTop:'0px'}}>
                   <div className="product-thumb">
                     <Image 
-                    src={FashionSliderProduct.thumbnail}
+                    src={FashionSliderProduct.thumbnail} 
                     width={351}
                     height={236}
                     alt="Product"

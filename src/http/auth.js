@@ -1,4 +1,14 @@
 import {$host} from "./index"
+function parseJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        return JSON.parse(window.atob(base64));
+    } catch (error) {
+        console.error("Error in parsing JWT", error);
+        return null;
+    }
+}
 
 export const createUser = async(email, password)=>{
     const {data} = await $host.post('api/user/register',{email,password})
@@ -92,4 +102,18 @@ export const getQrup = async(userId)=>{
         console.error('Error fetching qrup:', error);
         throw error;
     }
+}
+
+
+export const login = async (email, password)=>{
+    const {data} = await $host.post('api/user/login', {email, password})
+    localStorage.setItem('fridtoken', data.token)
+    const decodedToken = parseJwt(data.token);
+    return decodedToken
+}
+export const check = async ()=>{ 
+    const {data} = await $authHost.get('api/user/auth')
+    localStorage.setItem('fridtoken', data.token)
+    const decodedToken = parseJwt(data.token);
+    return decodedToken
 }

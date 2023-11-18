@@ -1,13 +1,15 @@
 'use client';
 import Link from "next/link";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from "react-redux";
 import AuthLayout from "../layout";
 import { logIn } from "@/store/slices/authSlice";
+import { login } from "@/http/auth";
 
 const SignIn = () => {
+    // const {user} = useContext(Context)
     const dispatch = useDispatch();
     const router = useRouter();
     const [signInData, setSignInData] = useState(null);
@@ -23,14 +25,28 @@ const SignIn = () => {
         password: "1234"
     }
     
-    const onSubmit = (data) => {
-        if (data.email === loginInfo.email &&  data.password === loginInfo.password) {
-            setSignInData(data);
+    const onSubmit = async (data) => {
+
+        try {
+            const dataResult = await login(data.email, data.password)
+            // user.setUser(user)
+            // user.setIsAuth(true)
             dispatch(logIn(data.email));
+            //navigate(SHOP_ROUTE)
             router.push('/dashboard');
-        }else {
+        } catch (error) {
+            //console.log(error)
             setLoginError(true);
         }
+
+
+        // if (data.email === loginInfo.email &&  data.password === loginInfo.password) {
+        //     setSignInData(data);
+        //     dispatch(logIn(data.email));
+        //     router.push('/dashboard');
+        // }else {
+        //     setLoginError(true);
+        // }
     }
 
     return ( 

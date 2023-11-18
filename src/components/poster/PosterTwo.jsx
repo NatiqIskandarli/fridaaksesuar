@@ -18,7 +18,7 @@ const PosterTwo = (props) => {
                   <div className="poster-content">
                     <div className="inner">
                       <h3 className="title">
-						{props.leftTitle ?? "Rich sound, for less.."}
+						{props.leftTitle ?? " "}
                       </h3>
                       <span className="sub-title">
                         Collections <i className="fal fa-long-arrow-right" />
@@ -40,7 +40,7 @@ const PosterTwo = (props) => {
                   <div className="poster-content">
                     <div className="inner">
                       <h3 className="title">
-						{props.leftTitle ?? "Rich sound, for less.."}
+						{props.leftTitle ?? " "}
                       </h3>
                       <span className="sub-title">
                         Collections <i className="fal fa-long-arrow-right" />
@@ -63,7 +63,7 @@ const PosterTwo = (props) => {
                     <div className="inner">
                       <span className="sub-title">{props.rightSubtitle ?? "50% Offer In Winter"}</span>
                       <h3 className="title">
-					  {props.rightTitle ?? " Get VR Reality Glass"}
+					  {props.rightTitle ?? "  "}
                       </h3>
                     </div>
                   </div>

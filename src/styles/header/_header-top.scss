@@ -291,6 +291,12 @@
     .header-top-dropdown {
         @media #{$large-mobile} {
             justify-content: flex-end;
+            
+        }
+    }
+    .ustteref {
+        @media #{$large-mobile} {
+        display: none;
         }
     }
 }
@@ -317,6 +323,7 @@
         }
         .header-top-dropdown {
             @media #{$sm-layout} {
+                display: none;
                 justify-content: center;
                 border-bottom: 1px solid #f1f1f1;
                 padding-bottom: 15px;

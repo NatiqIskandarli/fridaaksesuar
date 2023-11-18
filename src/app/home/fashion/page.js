@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from "react";
 import Section from "@/components/elements/Section";
 import SectionTitle from "@/components/elements/SectionTitle";
 import SlickSlider from "@/components/elements/SlickSlider";
@@ -14,12 +15,31 @@ import CategoryFurniture from '@/components/category/CategoryFurniture';
 
 const HomeFashion = () => {
     // const pathname = usePathname(); 
+    const [filterProduct, setFilterProduct] = useState([]);
     const pathname = 'home/fashion'; 
     const split = pathname.split("/");
     const pageCategory = split[split.length - 1];
-    const fashionProduct = ProductsData.filter(data => slugify(data.pCate) === pageCategory);
+
+    useEffect(()=>{
+        const fetchProd = async () =>{
+            try {
+                const resultProd = await getAllProductsBySub(1)
+                setFilterProduct(resultProd)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchProd()
+    },[])
+
+
+    const fashionProduct = filterProduct.filter(data => slugify(data.subCategoryId) === pageCategory);
     const transparentProduct = ProductsData.filter(data => slugify(data.pCate) === pageCategory && data.thumbnailTransparent === true);
     const exploreProduct = mapInSlices(fashionProduct, 4);
+
+
+    
 
     return ( 
         <>
