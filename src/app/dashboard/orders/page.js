@@ -5,20 +5,22 @@ import Link from "next/link";
 import { formatDate } from "@/utils/dateFormat";
 
 const UserOrders = () => {
-
+    const [userIdd, setUserIdd] = useState('')
     const [sifarisler, setSifarisler] = useState([])
     //fake userid
-    const userid = localStorage.getItem("userid")
+    
 
     
 
     useEffect(()=>{
+        const userId = localStorage.getItem("userid")
+        setUserIdd(userId)
         const fetchOrders = async () =>{
-            const getOrders = await getMyOrders(userid);
+            const getOrders = await getMyOrders(userIdd);
             setSifarisler([getOrders.dovriyye])
         }
         fetchOrders()
-    },[userid])
+    },[userIdd])
 
 
     return ( 

@@ -9,9 +9,15 @@ import { checkOutRegister, checkOutSade } from '@/http/auth';
 
 const OrderPayment = () => {
     const router = useRouter();
+    const [userIdd, setUserIdd] = useState('')
     const dispatch = useDispatch();
     const orders = useSelector((state) => state.productData.orderItems);
     const latestOrder = orders[orders.length - 1];
+
+    useEffect(()=>{
+        const userId = localStorage.getItem("userid")
+        setUserIdd(userId)
+    },[])
 
     const submitPayment = async () =>{       
         try {
@@ -33,7 +39,7 @@ const OrderPayment = () => {
                 orderDate: latestOrder.orderDate,
             }
             //console.log(fullData)
-            const getuse = localStorage.getItem("userid")
+            const getuse = userIdd
             if(getuse){
                 const payAndRegister = await checkOutSade(fullData)
             }else{

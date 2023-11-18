@@ -15,6 +15,7 @@ import { checkOutRegister } from '@/http/auth';
 
 const Checkout = () => {
     const router = useRouter();
+    const [userIdd, setUserIdd] = useState('')
     const dispatch = useDispatch();
     const [openShippingForm, setopenShippingForm] = useState(false);
     const cartProducts = useSelector((state) => state.productData);
@@ -28,6 +29,11 @@ const Checkout = () => {
         formState: { errors },
       } = useForm();
 
+    useEffect(()=>{
+        const userId = localStorage.getItem("userid")
+        setUserIdd(userId)
+    },[])
+
     const checkoutFormHandler = async (data, e) => {
         if (data) {
 
@@ -37,7 +43,7 @@ const Checkout = () => {
             //checkout
             //sonra asagidakini cagir
 
-            const getuse = localStorage.getItem("userid")
+            const getuse = userIdd
             if(getuse){
 
             const fullData = {
@@ -116,7 +122,7 @@ const Checkout = () => {
                         
                         
                         
-                        {localStorage.getItem("userid") ? "" : 
+                        {userIdd ? "" : 
                         
                         
                         

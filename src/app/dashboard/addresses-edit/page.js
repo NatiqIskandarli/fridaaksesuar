@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 
 const UserAddress = () => {
     const [unvan, setUnvan] = useState('')
+    const [userIdd, setUserIdd] = useState('')
     //fake userid
-    const userId = localStorage.getItem("userid")
+    // const userId = localStorage.getItem("userid")
 
     useEffect(()=>{
+        const userId = localStorage.getItem("userid")        
         const fetchOrders = async () =>{
-            const getOrder = await getMyAdress(userId);
+            const getOrder = await getMyAdress(userIdd);
             setUnvan(getOrder.adress)
         }
         fetchOrders()
-    },[userId])
+        setUserIdd(userId)
+    },[userIdd])
 
 
     return ( 
@@ -24,7 +27,7 @@ const UserAddress = () => {
                     <div className="address-info mb--40">
                         <div className="addrss-header d-flex align-items-center justify-content-between">
                             <h4 className="title mb-0">Çatdırılma Ünvanım</h4>
-                            <Link href={`/dashboard/addresses-edit/shipping/${userId}`}className="address-edit"><i className="far fa-edit" /></Link>
+                            <Link href={`/dashboard/addresses-edit/shipping/${userIdd}`}className="address-edit"><i className="far fa-edit" /></Link>
                         </div>
                         <div>
                             <p>

@@ -6,8 +6,10 @@ import { getMyPass,saveMyPass } from "@/http/auth";
 
 const AccountDetails = () => {
     const router = useRouter();
+    const [userIdd, setUserIdd] = useState('')
+
     //fake userid
-    const userId = localStorage.getItem("userid")
+    
     const [parol, setParol] = useState('');
     const {
         register,
@@ -21,7 +23,7 @@ const AccountDetails = () => {
 
         if(data.newPassword === data.newRepPassword){
         const formData = {
-            userId : userId,
+            userId : userIdd,
             password :  data.newPassword
         }
 
@@ -38,13 +40,15 @@ const AccountDetails = () => {
     }
 
     useEffect(()=>{
+        const userId = localStorage.getItem("userid")
+        setUserIdd(userId)
         const fetchOrders = async () =>{
-            const getOrder = await getMyPass(userId);
+            const getOrder = await getMyPass(userIdd);
             setParol(getOrder.password)
             setValue('password',getOrder.password)
         }
         fetchOrders()
-    },[userId, setValue])
+    },[userIdd,setValue])
 
     return ( 
         <div className="axil-dashboard-account">
