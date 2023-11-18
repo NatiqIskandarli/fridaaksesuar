@@ -4,7 +4,7 @@ import ProductDiscountLabel from "./ProductDiscountLabel";
 import ActionButtons from "./ActionButtons";
 
 const ProductThumbnail = (props) => {
-	console.log(NEXT_PUBLIC_APP_API_IMG_URL,props.productThumb.imageURL)
+	console.log(props.productThumb.imageURL)
   return (
       <div className="thumbnail">
         <Link href={`/products/${props.productThumb.productId}`}>
