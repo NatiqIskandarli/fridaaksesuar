@@ -6,7 +6,7 @@ import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderFive from "@/components/header/HeaderFive";
 import HeaderTwo from "@/components/header/HeaderTwo";
 import { checkOutRegister, checkOutSade } from '@/http/auth';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 const OrderPayment = () => {
     const router = useRouter();

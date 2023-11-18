@@ -12,7 +12,6 @@
     "@emailjs/browser": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/dompurify": "^3.0.5",
-    "@types/jwt-decode": "^3.1.0",
     "axios": "^1.6.0",
     "bootstrap": "^5.2.3",
     "dompurify": "^3.0.6",
