@@ -29,7 +29,7 @@ const SingleLayouThree = ({ singleData, images }) => {
 
     const handleAddToCart = (cartAddedData) => {
         // console.log("add to cart ffffff")
-        const img = process.env.NEXT_PUBLIC_APP_API_URL+images[0].name
+        const img = process.env.NEXT_PUBLIC_APP_API_IMG_URL+images[0].name
         let product = {...cartAddedData, thumbnail : img}
         if (quantity > 0) {
             product.stockQuantity = quantity;
@@ -66,10 +66,10 @@ const SingleLayouThree = ({ singleData, images }) => {
         let galleryPreview = [];
         if (images) {
             images.map((img) => {
-                galleryPreview.push(process.env.NEXT_PUBLIC_APP_API_URL+img.name);
+                galleryPreview.push(process.env.NEXT_PUBLIC_APP_API_IMG_URL+img.name);
             })
         } else {
-            galleryPreview.push(process.env.NEXT_PUBLIC_APP_API_URL+images.name);
+            galleryPreview.push(process.env.NEXT_PUBLIC_APP_API_IMG_URL+images.name);
         }
         return galleryPreview;
     }
@@ -101,7 +101,7 @@ const SingleLayouThree = ({ singleData, images }) => {
                                             {images ? images.map((galleryImg, index) => (
                                                 <div className="thumbnail" key={index}>
                                                     <Image
-                                                        src={process.env.NEXT_PUBLIC_APP_API_URL+galleryImg.name}
+                                                        src={process.env.NEXT_PUBLIC_APP_API_IMG_URL+galleryImg.name}
                                                         height={584}
                                                         width={584}
                                                         alt="Gallery Image"
@@ -110,7 +110,7 @@ const SingleLayouThree = ({ singleData, images }) => {
                                             )) :
                                                 <div className="thumbnail">
                                                     <Image
-                                                        src={process.env.NEXT_PUBLIC_APP_API_URL+images.name}
+                                                        src={process.env.NEXT_PUBLIC_APP_API_IMG_URL+images.name}
                                                         height={584}
                                                         width={584}
                                                         alt="Gallery Image"
@@ -160,19 +160,19 @@ const SingleLayouThree = ({ singleData, images }) => {
                                         {images ? images.map((galleryImg, index) => (
                                             <div className="small-thumb-img" key={index}>
                                                 <Image
-                                                    src={process.env.NEXT_PUBLIC_APP_API_URL+galleryImg.name}
+                                                    src={process.env.NEXT_PUBLIC_APP_API_IMG_URL+galleryImg.name}
                                                     height={207}
                                                     width={213}
-                                                    alt="Thumb Image 1"
+                                                    alt={images.name}
                                                 />
                                             </div>
                                         )) :
                                             <div className="small-thumb-img">
                                                 <Image
-                                                    src={process.env.NEXT_PUBLIC_APP_API_URL+images.name}
+                                                    src={process.env.NEXT_PUBLIC_APP_API_IMG_URL+images.name}
                                                     height={207}
                                                     width={213}
-                                                    alt="Thumb Image"
+                                                    alt={images.name}
                                                 />
                                             </div>}
                                     </SlickSlider>
@@ -184,11 +184,11 @@ const SingleLayouThree = ({ singleData, images }) => {
                                 <div className="inner">
                                     <h2 className="product-title">{singleData.productName}</h2>
                                     <span className="price-amount">{singleData.salePrice ? singleData.salePrice : singleData.price} AZN</span>
-                                    <ProductRating rating={singleData} textEnable/>
+                                    {/* <ProductRating rating={singleData} textEnable/> */}
                                     {singleData.description && 
                                     <>
                                     <ul className="product-meta" dangerouslySetInnerHTML={{ __html: singleData.description }}></ul>
-                                    <p>{singleData.description}</p>
+                                    {/* <p>{singleData.moreText}</p> */}
                                     </>
                                     }
                                     <div className="product-variations-wrapper">
@@ -247,10 +247,7 @@ const SingleLayouThree = ({ singleData, images }) => {
                 <div className="container">
                     <ul className="nav tabs" role="tablist">
                         <li className="nav-item" role="presentation">
-                            <a className="active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
-                        </li>             
-                        <li className="nav-item" role="presentation">
-                            <a id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+                            <a className="active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Ətraflı</a>
                         </li>
                     </ul>
                     <div className="tab-content">
@@ -265,7 +262,7 @@ const SingleLayouThree = ({ singleData, images }) => {
                             </div>
                         </div>
                 
-                        <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        {/* <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                             <div className="reviews-wrapper">
                                 <div className="row">
                                     <div className="col-lg-6 mb--40">
@@ -354,7 +351,7 @@ const SingleLayouThree = ({ singleData, images }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

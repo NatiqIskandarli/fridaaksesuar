@@ -53,8 +53,8 @@ const ProductDetails = ({ params }) => {
             
             <Section pClass="pb--50 pb_sm--30">
                 <SectionTitle 
-                    title="Viewed Items"
-                    subtitle="Your Recently"
+                    title="Digər məhsullar"
+                    subtitle="Bu kateqoriyada olan digər məhsullar"
                     subtitleIcon="far fa-shopping-basket"
                     subColor="highlighter-primary"
                 />
