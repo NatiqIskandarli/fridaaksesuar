@@ -10,7 +10,7 @@ const ProductThumbnail = (props) => {
         <Link href={`/products/${props.productThumb.productId}`}>
           <Image
             src={
-              props.attributeImg ? props.attributeImg : process.env.NEXT_PUBLIC_APP_API_URL+props.productThumb.imageURL
+              props.attributeImg ? props.attributeImg : process.env.NEXT_PUBLIC_APP_API_IMG_URL+props.productThumb.imageURL
             }
             width={props.width ?? 300}
             height={props.height ?? 300}
