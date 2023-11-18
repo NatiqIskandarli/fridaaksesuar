@@ -4,13 +4,13 @@ import ProductDiscountLabel from "./ProductDiscountLabel";
 import ActionButtons from "./ActionButtons";
 
 const ProductThumbnail = (props) => {
-
+	console.log(NEXT_PUBLIC_APP_API_IMG_URL,props.productThumb.imageURL)
   return (
       <div className="thumbnail">
         <Link href={`/products/${props.productThumb.productId}`}>
           <Image
             src={
-              props.attributeImg ? props.attributeImg : process.env.NEXT_PUBLIC_APP_API_IMG_URL+props.productThumb.imageURL
+              "https://fridas3new.s3.amazonaws.com/uploads/7d6194c9-ee2b-4bf0-8b72-bb2b38a65ecb.jpg"
             }
             width={props.width ?? 300}
             height={props.height ?? 300}
