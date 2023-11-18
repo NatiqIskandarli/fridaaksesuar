@@ -13,8 +13,8 @@ const ActionButtons = (props) => {
   const isWishlistAdded = getWishlist.filter((data) => data.productId === props.productAction.productId);
 
   const handleAddToCart = (product) => {
-    console.log(product)
-    console.log("add to cart dddddd productun uzerine gelende cixan buttondur")
+    // console.log(product)
+    // console.log("add to cart dddddd productun uzerine gelende cixan buttondur")
     const img = process.env.NEXT_PUBLIC_APP_API_URL+product.imageURL
     product.stockQuantity = 1;
     const productWithTag = {...product, thumbnail : img}

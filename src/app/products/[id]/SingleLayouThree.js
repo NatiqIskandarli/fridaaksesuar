@@ -28,7 +28,7 @@ const SingleLayouThree = ({ singleData, images }) => {
     const dispatch = useDispatch();
 
     const handleAddToCart = (cartAddedData) => {
-        console.log("add to cart ffffff")
+        // console.log("add to cart ffffff")
         const img = process.env.NEXT_PUBLIC_APP_API_URL+images[0].name
         let product = {...cartAddedData, thumbnail : img}
         if (quantity > 0) {
