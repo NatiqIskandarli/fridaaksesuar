@@ -12,7 +12,7 @@ import { slugify, mapInSlices } from '@/utils';
 import ProductOne from '@/components/product/ProductOne';
 import PosterTwo from '@/components/poster/PosterTwo';
 import CategoryFurniture from '@/components/category/CategoryFurniture';
-import { getAllProducts } from "@/http/product";
+import { getAllProductsByImg } from "@/http/product";
 
 const HomeFashion = () => {
     // const pathname = usePathname(); 
@@ -24,7 +24,7 @@ const HomeFashion = () => {
     useEffect(()=>{
         const fetchProd = async () =>{
             try {
-                const resultProd = await getAllProducts()                
+                const resultProd = await getAllProductsByImg()
                 setFilterProduct(resultProd)
             } catch (error) {
                 console.log(error)

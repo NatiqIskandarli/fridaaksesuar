@@ -59,7 +59,7 @@ const FooterData = {
                 },
                 {
                     name: "Qaydalar və Şərtlər",
-                    url: "/"
+                    url: "/privacy-policy"
                 },
                 {
                     name: "Bizimlə Əlaqə",
@@ -71,7 +71,7 @@ const FooterData = {
     footerInfo: {
         address: "Əhməd Rəcəbli küç, Nərimanov rayonu. Bakı, Azərbaycan",
         email: "office@fridaaksesuar.com",
-        phone: "055 200 00 00"
+        phone: "051-232-86-66"
     },
     footerAppInfo: {
         title: "",

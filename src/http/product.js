@@ -10,6 +10,11 @@ export const getAllProducts = async()=>{
     return data
 }
 
+export const getAllProductsByImg = async()=>{
+    const {data} = await $host.get(`api/product/getAllProductsByImg`)
+    return data
+}
+
 export const getOneProduct = async(id)=>{
     const {data} = await $host.get(`api/product/getOneProduct/${id}`)
     return data
