@@ -58,6 +58,9 @@ const Dashboard = () => {
         {isLoading ? 
         <div className="axil-dashboard-overview">            
             <div className="welcome-text" style={{marginBottom: "2px"}}>
+                Sponsorun Ad Soyad: {qrupOzu.ad}                
+            </div>
+            <div className="welcome-text" style={{marginBottom: "2px"}}>
                 Sponsorun Ozu: {qrupOzu.email}                
             </div>
             <div className="welcome-text" style={{marginBottom: "2px"}}>
@@ -73,7 +76,10 @@ const Dashboard = () => {
             {altQrup.map((val,key)=>(
                 <div key={key} style={{marginRight:"105px"}}>
                     <div className="welcome-text" style={{marginBottom: "2px",marginTop:"20px"}}>
-                        Qol {key+1} : {val.email}                
+                        Qol  {key+1} Ad Soyad : {val.ad}                
+                    </div>
+                    <div className="welcome-text" style={{marginBottom: "2px",marginTop:"20px"}}>
+                        Email : {val.email}                
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
                         Balans : {val.qazanc ? parseFloat(val.qazanc) : 0} AZN
@@ -94,18 +100,21 @@ const Dashboard = () => {
                     {altIkiQrup.length>0 ? <h3>Sponsor {ozemail}</h3> : ""}
                     {altIkiQrup.map((value, key) => (
                         <div key={key} style={{ marginLeft: "60px" }}>
-                           <div className="welcome-text" style={{ marginBottom: "2px", marginTop: "20px" }}>
+                            <div className="welcome-text" style={{ marginBottom: "2px", marginTop: "20px" }}>
+                                Ad Soyad : {value.ad}                
+                            <div className="welcome-text" style={{ marginBottom: "2px", marginTop: "20px" }}>
                                 Qol {key + 1} : {value.email}                
-                                </div>
-                                <div className="welcome-text" style={{ marginBottom: "2px" }}>
+                            </div>
+                            </div>
+                            <div className="welcome-text" style={{ marginBottom: "2px" }}>
                                 Balans : {value.qazanc ? parseFloat(value.qazanc) : 0} AZN
-                                </div>
-                                <div className="welcome-text" style={{ marginBottom: "2px" }}>
+                            </div>
+                            <div className="welcome-text" style={{ marginBottom: "2px" }}>
                                 Vəzifəsi : {value.vezifesi}
-                                </div>
-                                <div className="welcome-text">
+                            </div>
+                            <div className="welcome-text">
                                 Öz Dövriyyəsi : {parseFloat(value.OzDovriyyesi)}
-                                </div>                         
+                            </div>                         
                            
                         </div>
                     ))}

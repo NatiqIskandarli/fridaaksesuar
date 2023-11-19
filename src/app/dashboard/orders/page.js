@@ -13,14 +13,15 @@ const UserOrders = () => {
     
 
     useEffect(()=>{
-        const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
         const fetchOrders = async () =>{
-            const getOrders = await getMyOrders(userIdd);
-            setSifarisler([getOrders.dovriyye])
+            const userId = localStorage.getItem("userid")
+            setUserIdd(userId)
+            const getOrders = await getMyOrders(userId);
+            console.log(getOrders.dovriyye)
+            setSifarisler([getOrders.dovriyye ? getOrders.dovriyye : ""])
         }
         fetchOrders()
-    },[userIdd])
+    },[])
 
 
     return ( 
@@ -38,7 +39,7 @@ const UserOrders = () => {
                     <tbody>
                         {sifarisler.map((sifaris)=> (
                         <>
-                        <tr>
+                        <tr key={sifaris}>
                             <th scope="row">#{sifaris.id}</th>
                             <td>{formatDate(sifaris.createdAt)}</td>
                             <td>{sifaris.totalAmount} AZN</td>

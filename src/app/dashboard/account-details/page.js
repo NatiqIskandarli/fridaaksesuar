@@ -40,10 +40,11 @@ const AccountDetails = () => {
     }
 
     useEffect(()=>{
-        const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
+        
         const fetchOrders = async () =>{
-            const getOrder = await getMyPass(userIdd);
+            const userId = localStorage.getItem("userid")
+            setUserIdd(userId)
+            const getOrder = await getMyPass(userId);
             setParol(getOrder.password)
             setValue('password',getOrder.password)
         }
@@ -55,9 +56,7 @@ const AccountDetails = () => {
             <form className="account-details-form" onSubmit={handleSubmit(userInfoHandler)}>
                 <div className="row">
                     <div className="col-lg-6">
-                        <div className="form-group">
-                            <label>Ad/Soyad</label>                            
-                        </div>
+                        
                     </div>                   
                     <div className="col-12">
                         <h5 className="title"></h5>

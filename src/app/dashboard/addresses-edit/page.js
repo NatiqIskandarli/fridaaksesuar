@@ -10,14 +10,14 @@ const UserAddress = () => {
     // const userId = localStorage.getItem("userid")
 
     useEffect(()=>{
-        const userId = localStorage.getItem("userid")        
         const fetchOrders = async () =>{
-            const getOrder = await getMyAdress(userIdd);
+            const userId = localStorage.getItem("userid")        
+            setUserIdd(userId)
+            const getOrder = await getMyAdress(userId);
             setUnvan(getOrder.adress)
         }
         fetchOrders()
-        setUserIdd(userId)
-    },[userIdd])
+    },[])
 
 
     return ( 

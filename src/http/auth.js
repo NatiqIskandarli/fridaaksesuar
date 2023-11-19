@@ -68,9 +68,9 @@ export const getMyAdress = async(userId)=>{
     }    
 }
 
-export const getMyPass = async(userId)=>{
+export const getMyPass = async(userIdd)=>{
     try {
-        const {data} = await $host.get(`api/user/getMyPass/${userId}`)
+        const {data} = await $host.get(`api/user/getMyPass/${userIdd}`)
         return data
     } catch (error) {
         console.error('Error fetching adress:', error);
