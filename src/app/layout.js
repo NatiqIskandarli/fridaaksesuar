@@ -1,4 +1,6 @@
 'use client';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import { useEffect } from 'react';
 import { Providers } from '@/store/provider';
 import "slick-carousel/slick/slick.css"; 
