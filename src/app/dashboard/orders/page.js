@@ -17,7 +17,7 @@ const UserOrders = () => {
             const userId = localStorage.getItem("userid")
             setUserIdd(userId)
             const getOrders = await getMyOrders(userId);
-            console.log(getOrders.dovriyye)
+            //console.log(getOrders.dovriyye)
             setSifarisler([getOrders.dovriyye ? getOrders.dovriyye : ""])
         }
         fetchOrders()

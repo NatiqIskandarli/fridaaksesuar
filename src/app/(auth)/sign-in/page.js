@@ -29,11 +29,14 @@ const SignIn = () => {
 
         try {
             const dataResult = await login(data.email, data.password)
-            if(dataResult){    
-                localStorage.setItem("userid", dataResult.userid)
-                
+            if(dataResult.userid){
+                localStorage.setItem("userid", dataResult.userid)                
                 dispatch(DaxilOl(dataResult.userid));
                 router.push('/dashboard');
+
+            }else{
+                alert('Bu email mövcud deyil. Zəhmət olmasa doğru emaili qeyd edin')
+                //console.log("user yoxdur")
             }
             // user.setUser(user)
             // user.setIsAuth(true)
