@@ -5,20 +5,94 @@ import Section from "@/components/elements/Section";
 import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderFive from "@/components/header/HeaderFive";
 import HeaderTwo from "@/components/header/HeaderTwo";
-import { checkOutRegister, checkOutSade } from '@/http/auth';
+import { getTransActionByUserId, updateTransActionByOrderId } from '@/http/auth';
 import { useState,useEffect } from 'react';
+import { async } from 'regenerator-runtime';
 
 const ApprovePayment = () => {
     const router = useRouter();
     const [userIdd, setUserIdd] = useState('')
-    const dispatch = useDispatch();
+    const [yenilendi, setYenilendi] = useState('')
     const orders = useSelector((state) => state.productData.orderItems);
-    const latestOrder = orders[orders.length - 1];
 
-    useEffect(()=>{
-        const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
+    
+
+    useEffect(()=>{        
+        
+        const updateM = async (val)=>{
+            const totalAmount = val.payload.row.amount
+            const orderId = val.payload.row.id
+            const orderStatus = val.payload.row.orderstatus
+            const card = val.payload.row.orderParams.paramsList[0].val
+    
+            const fullData = {
+                totalAmount : totalAmount,    
+                orderId : orderId,        
+                orderStatus : orderStatus,        
+                card : card
+            }      
+    
+            const updResult =await updateTransActionByOrderId(fullData)
+            console.log(updResult)
+            if(updResult ==="yenilendi"){
+                setYenilendi('Ödəniş uğurla qəbul edildiş Gözləyin..')
+                window.location.href = ''
+            }else{
+                setYenilendi('Gözləyin..')
+            }
+        }
+
+
+
+
+
+            const getTransAction = async ()=>{
+                const userId = localStorage.getItem("userid")
+                setUserIdd(userId)
+
+                try {                
+                    const result = await getTransActionByUserId(userId);
+
+                    const orderId = result[0].orderId
+                    const sessionId = result[0].sessionId
+
+                    const url = `${process.env.NEXT_PUBLIC_PAYRIFF_GET_ORDER_URL}`;
+        
+                    const data =  {
+                        "body": {
+                            "languageType": "AZ",
+                            "orderId": orderId,
+                            "sessionId": `${sessionId}`
+                        },
+                        "merchant": `${process.env.NEXT_PUBLIC_MERCHANT}`
+                        };
+
+
+
+                    fetch(url,{
+                        method:"POST",
+                        body: JSON.stringify(data),
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Authorization": `${process.env.NEXT_PUBLIC_PAYRIFF_AUTH_KEY}`,
+                        },
+                    }).then((response)=>{
+                    return response.json(); 
+                    }).then((val)=>{
+                        updateM(val)
+                    }).catch((error) => console.error(error));  
+
+                } catch (error) {
+                    window.location.href = '/'
+                }
+            }
+
+            getTransAction()
+
+
     },[])
+
+    
 
     
 
@@ -28,7 +102,7 @@ const ApprovePayment = () => {
             <main className="main-wrapper">
                 <Section pClass="order-received">                                
                         <div className="order-details">                            
-                        approve
+                        {yenilendi}
                         </div>                      
                 </Section>
             </main>

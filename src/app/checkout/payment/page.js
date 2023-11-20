@@ -16,76 +16,109 @@ const OrderPayment = () => {
     const latestOrder = orders[orders.length - 1];
 
     useEffect(()=>{
-        const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
-    },[])
-
-    const submitPayment = async () =>{       
         try {
-
-            const url = "https://api.payriff.com/api/v2/createOrder";
-    
-            const data =  {
-                "body": {
-                  "amount": latestOrder.totalAmount,
-                  "approveURL": "https://fridaaksessuar.com/url/approvep",
-                  "cancelURL": "https://fridaaksessuar.com/url/cancelp",
-                  "declineURL": "https://fridaaksessuar.com/url/declinep",
-                  "currencyType": "AZN",
-                  "directPay": true,
-                  "language": "AZ"
-                },
-                "merchant": "ES1092232"
-            };
-
-
-            fetch(url,{
-                method:"POST",
-                body: JSON.stringify(data),
-                headers:{
-                    "Content-Type": "application/json",
-                    "Authorization": `${process.env.PAYRIFF_AUTH_KEY}`,
-                },
-            }).then((response)=>{
-               return response.json(); 
-            }).catch((error) => console.error(error));
-    
-
-
-            // const fullData = {
-            //     billingAddress: {
-            //         firstName: latestOrder.billingAddress.firstName,
-            //         lastName: latestOrder.billingAddress.lastName,                    
-            //         street1: latestOrder.billingAddress.street1,
-            //         city: latestOrder.billingAddress.city,
-            //         phone: latestOrder.billingAddress.phone,
-            //         password: latestOrder.billingAddress.password,
-            //         email: latestOrder.billingAddress.email,                    
-            //         payment: latestOrder.billingAddress.payment
-            //     },
-            //     sponsorId: latestOrder.sponsorId,
-            //     items: latestOrder.items,
-            //     totalAmount: latestOrder.totalAmount,
-            //     totalQuantity: latestOrder.totalQuantity,
-            //     orderDate: latestOrder.orderDate,
-            // }
-            // //console.log(fullData)
-            // const getuse = userIdd
-            // if(getuse){
-            //     const payAndRegister = await checkOutSade(fullData)
-            // }else{
-            //     const payAndRegister = await checkOutRegister(fullData)
-            // }
+            const userId = localStorage.getItem("userid")
+            setUserIdd(userId)
+            const submitPayment = async () =>{       
+                try {
+        
+                    const url = `${process.env.NEXT_PUBLIC_PAYRIFF_CREATE_URL}`;
             
-            // //console.log(payAndRegister)
+                    const data =  {
+                        "body": {
+                          "amount": latestOrder.totalAmount,
+                          "approveURL": `${process.env.NEXT_PUBLIC_APPROVE_URL}`,
+                          "cancelURL": `${process.env.NEXT_PUBLIC_CANCEL_URL}`,
+                          "declineURL": `${process.env.NEXT_PUBLIC_DECLINE_URL}`,
+                          "currencyType": "AZN",
+                          "directPay": true,
+                          "language": "AZ"
+                        },
+                        "merchant": `${process.env.NEXT_PUBLIC_MERCHANT}`
+                    };
+        
+                    fetch(url,{
+                        method:"POST",
+                        body: JSON.stringify(data),
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Authorization": `${process.env.NEXT_PUBLIC_PAYRIFF_AUTH_KEY}`,
+                        },
+                    }).then((response)=>{
+                       return response.json(); 
+                    }).then((val)=>{
+                        payM(val)                
+                    }).catch((error) => console.error(error));  
+        
+                } catch (error) {
+                    console.log(error)
+                }
+                
+            }
+        
+        
+            const payM = async (val) =>{
+                try {
+                        //console.log(val.payload);
+        
+                        const fullData = {
+                            billingAddress: {
+                                firstName: latestOrder.billingAddress.firstName,
+                                lastName: latestOrder.billingAddress.lastName,                    
+                                street1: latestOrder.billingAddress.street1,
+                                city: latestOrder.billingAddress.city,
+                                phone: latestOrder.billingAddress.phone,
+                                password: latestOrder.billingAddress.password,
+                                email: latestOrder.billingAddress.email,                    
+                                payment: latestOrder.billingAddress.payment
+                            },
+                            sponsorId: latestOrder.sponsorId,
+                            items: latestOrder.items,
+                            totalAmount: latestOrder.totalAmount,
+                            totalQuantity: latestOrder.totalQuantity,
+                            orderDate: latestOrder.orderDate,
+                            orderId: val.payload.orderId,
+                            sessionId: val.payload.sessionId,
+                            transactionId: val.payload.transactionId,
+                            userId: userIdd ? userIdd : 0
+                        }
+                        //console.log(fullData)
+                        const getuse = userIdd
+                        if(getuse){
+                            try {
+                                await checkOutSade(fullData)                                
+                                window.location.href = `${val.payload.paymentUrl}`;                        
+                            } catch (error) {
+                                console.log(error)
+                            }
+        
+                        }else{
+                            try {                        
+                                const checkouR = await checkOutRegister(fullData)
+                                
+                                window.location.href = `${val.payload.paymentUrl}`;
+                            } catch (error) {
+                                console.log(error)
+                            }
+                        }                
+        
+                        //router.push('checkout/order-received');
+                        
+                } catch (error) {
+                    console.log(error)
+                }
+            }
 
-            // router.push('checkout/order-received');
+            submitPayment()
+
 
         } catch (error) {
             console.log(error)
         }
         
-    }
+    },[latestOrder,userIdd])
+
+    
 
     
 
@@ -96,7 +129,8 @@ const OrderPayment = () => {
                 <Section pClass="order-received">
                     {latestOrder && 
                         <>
-                        <h1 className="thank-you-text">Ödəniş et</h1>
+                        <h3>Gözləyin ....</h3>
+                        {/* <h1 className="thank-you-text">Ödəniş et</h1>
                         <div className="order-details">
                             <table className="table">
                                 <thead>
@@ -117,7 +151,7 @@ const OrderPayment = () => {
                                     </tr>
                                 </tfoot>
                             </table>
-                        </div>
+                        </div> */}
                       
                         </>
                     }

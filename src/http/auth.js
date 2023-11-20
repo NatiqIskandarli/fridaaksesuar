@@ -30,6 +30,15 @@ export const checkOutSade = async(fullData)=>{
     return data
 }
 
+export const getTransActionByUserId = async(userId)=>{
+    const {data} = await $host.get(`api/product/getTransActionByUserId/${userId}`)
+    return data
+}
+
+export const updateTransActionByOrderId = async(fullData)=>{
+    const {data} = await $host.put('api/product/updateTransActionByOrderId',{fullData})
+    return data
+}
 
 
 export const getBalansById = async(userId)=>{
