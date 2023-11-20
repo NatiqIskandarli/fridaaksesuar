@@ -50,7 +50,7 @@ const HomeFashion = () => {
             <BannerThree />            
             <CategoryFurniture />
             {/* <ServiceOne /> */}            
-            <ServiceTwo />
+            {/* <ServiceTwo /> */}
             <PosterTwo column="mb--10"/>
             <Section>
                 <SectionTitle

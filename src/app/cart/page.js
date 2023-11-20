@@ -125,8 +125,8 @@ const Cart = () => {
                                         <td>{cartProducts.cartTotalAmount} AZN</td>
                                         </tr>
                                         <tr className="order-shipping">
-                                        <td>Çatdırılma</td>
-                                        <td>
+                                        {/* <td>Çatdırılma</td> */}
+                                        {/* <td>
                                             <div className="input-group">
                                             <input type="radio" id="radio1" name="shipping" defaultChecked />
                                             <label htmlFor="radio1">Pulsuz çatdırılma</label>
@@ -135,7 +135,7 @@ const Cart = () => {
                                             <input type="radio" id="radio2" name="shipping" />
                                             <label htmlFor="radio2">Ödənişli: 5 AZN</label>
                                             </div>
-                                        </td>
+                                        </td> */}
                                         </tr>
                                         <tr className="order-total">
                                         <td>Cəmi məbləğ</td>
@@ -144,9 +144,19 @@ const Cart = () => {
                                     </tbody>
                                     </table>
                                 </div>
+
+                                {cartProducts.cartTotalAmount > 29 && (
                                 <Link href="/checkout" className="axil-btn btn-bg-primary checkout-btn">
                                 Ödəniş et
                                 </Link>
+                                )}
+
+                                {cartProducts.cartTotalAmount <29  && (
+                                    <h4>Minimum 30 azn dəyərində məhsul almaq lazımdır</h4>
+                                )}
+
+
+
                                 </div>
                             </div>
                         </div>

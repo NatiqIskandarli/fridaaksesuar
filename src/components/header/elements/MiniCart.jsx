@@ -81,7 +81,16 @@ return (
               </h3>
               <div className="group-btn">
 				<button className="axil-btn btn-bg-primary viewcart-btn" onClick={() => miniCartFooterBtnHandler("/cart")}>Səbətə bax</button>
-				<button className="axil-btn btn-bg-secondary checkout-btn" onClick={() => miniCartFooterBtnHandler("/checkout")}>Ödəniş et</button>
+
+        {getProducts.cartTotalAmount > 29 && (
+				  <button className="axil-btn btn-bg-secondary checkout-btn" onClick={() => miniCartFooterBtnHandler("/checkout")}>Ödəniş et</button>
+        )}
+
+        {getProducts.cartTotalAmount <29  && (
+           <h4>Minimum 30 azn dəyərində məhsul almaq lazımdır</h4>
+        )}
+
+
               </div>
             </div>
           ) : (

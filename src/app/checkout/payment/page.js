@@ -73,7 +73,7 @@ const OrderPayment = () => {
                     }).then((response)=>{
                        return response.json(); 
                     }).then((val)=>{
-                        console.log(val)
+                        //console.log(val)
                         payM(val,fullData)                
                     }).catch((error) => console.error(error));  
         
@@ -93,9 +93,7 @@ const OrderPayment = () => {
                         fullData.transactionId = val.payload.transactionId       
 
                         const upDfullData = fullData
-
-
-                        console.log(upDfullData)
+   
                         const getuse = userIdd
                         if(getuse){
                             try {
@@ -107,7 +105,10 @@ const OrderPayment = () => {
         
                         }else{
                             try {                        
-                                await checkOutRegister(upDfullData)
+                                const checkReg = await checkOutRegister(upDfullData) 
+                                //console.log(checkReg.user.id)
+
+                                localStorage.setItem("userid", checkReg.user.id)
                                 window.location.href = `${val.payload.paymentUrl}`;
                             } catch (error) {
                                 console.log(error)
