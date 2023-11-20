@@ -12,15 +12,15 @@ const FooterData = {
                     url: "/"
                 },
                 {
-                    name: "Şampuanlar",
+                    name: " ",
                     url: "/"
                 },
                 {
-                    name: "Şampuanlar",
+                    name: " ",
                     url: "/"
                 },
                 {
-                    name: "Şampuanlar",
+                    name: " ",
                     url: "/"
                 }
             ]
