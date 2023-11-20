@@ -117,14 +117,9 @@ const Checkout = () => {
                 {cartProducts.cartItems.length > 0 ? 
                 <form onSubmit={handleSubmit(checkoutFormHandler)}>
                     <div className="row">
+
                         
-                        
-                        
-                        {console.log(userIdd)}
-                        
-                        {userIdd ? "" : 
-                        
-                        
+                        {userIdd ? "" :
                         
                         
                         <div className="col-lg-6">

@@ -15,18 +15,44 @@ const OrderPayment = () => {
     const orders = useSelector((state) => state.productData.orderItems);
     const latestOrder = orders[orders.length - 1];
 
+
     useEffect(()=>{
         try {
             const userId = localStorage.getItem("userid")
             setUserIdd(userId)
-            const submitPayment = async () =>{       
+            const submitPayment = async () =>{
                 try {
+
+                    const fullData = {
+                        billingAddress: {
+                            firstName: latestOrder.billingAddress.firstName,
+                            lastName: latestOrder.billingAddress.lastName,                    
+                            street1: latestOrder.billingAddress.street1,
+                            city: latestOrder.billingAddress.city,
+                            phone: latestOrder.billingAddress.phone,
+                            password: latestOrder.billingAddress.password,
+                            email: latestOrder.billingAddress.email,                    
+                            payment: latestOrder.billingAddress.payment
+                        },
+                        sponsorId: latestOrder.sponsorId,
+                        items: latestOrder.items,
+                        totalAmount: latestOrder.totalAmount,
+                        totalQuantity: latestOrder.totalQuantity,
+                        orderDate: latestOrder.orderDate,                        
+                        userId: userIdd ? userIdd : 0,
+                        orderId : 0,
+                        sessionId : 0,
+                        transactionId : 0
+                    }
         
                     const url = `${process.env.NEXT_PUBLIC_PAYRIFF_CREATE_URL}`;
+
+                    //const totalMebleg = latestOrder.totalAmount
+                    const totalMebleg = 0.01
             
                     const data =  {
                         "body": {
-                          "amount": latestOrder.totalAmount,
+                          "amount": totalMebleg,
                           "approveURL": `${process.env.NEXT_PUBLIC_APPROVE_URL}`,
                           "cancelURL": `${process.env.NEXT_PUBLIC_CANCEL_URL}`,
                           "declineURL": `${process.env.NEXT_PUBLIC_DECLINE_URL}`,
@@ -47,7 +73,8 @@ const OrderPayment = () => {
                     }).then((response)=>{
                        return response.json(); 
                     }).then((val)=>{
-                        payM(val)                
+                        console.log(val)
+                        payM(val,fullData)                
                     }).catch((error) => console.error(error));  
         
                 } catch (error) {
@@ -57,36 +84,22 @@ const OrderPayment = () => {
             }
         
         
-            const payM = async (val) =>{
+            const payM = async (val,fullData) =>{
                 try {
                         //console.log(val.payload);
         
-                        const fullData = {
-                            billingAddress: {
-                                firstName: latestOrder.billingAddress.firstName,
-                                lastName: latestOrder.billingAddress.lastName,                    
-                                street1: latestOrder.billingAddress.street1,
-                                city: latestOrder.billingAddress.city,
-                                phone: latestOrder.billingAddress.phone,
-                                password: latestOrder.billingAddress.password,
-                                email: latestOrder.billingAddress.email,                    
-                                payment: latestOrder.billingAddress.payment
-                            },
-                            sponsorId: latestOrder.sponsorId,
-                            items: latestOrder.items,
-                            totalAmount: latestOrder.totalAmount,
-                            totalQuantity: latestOrder.totalQuantity,
-                            orderDate: latestOrder.orderDate,
-                            orderId: val.payload.orderId,
-                            sessionId: val.payload.sessionId,
-                            transactionId: val.payload.transactionId,
-                            userId: userIdd ? userIdd : 0
-                        }
-                        //console.log(fullData)
+                        fullData.orderId = val.payload.orderId
+                        fullData.sessionId = val.payload.sessionId
+                        fullData.transactionId = val.payload.transactionId       
+
+                        const upDfullData = fullData
+
+
+                        console.log(upDfullData)
                         const getuse = userIdd
                         if(getuse){
                             try {
-                                await checkOutSade(fullData)                                
+                                await checkOutSade(upDfullData)                                
                                 window.location.href = `${val.payload.paymentUrl}`;                        
                             } catch (error) {
                                 console.log(error)
@@ -94,8 +107,7 @@ const OrderPayment = () => {
         
                         }else{
                             try {                        
-                                const checkouR = await checkOutRegister(fullData)
-                                
+                                await checkOutRegister(upDfullData)
                                 window.location.href = `${val.payload.paymentUrl}`;
                             } catch (error) {
                                 console.log(error)

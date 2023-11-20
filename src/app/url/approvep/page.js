@@ -19,7 +19,7 @@ const ApprovePayment = () => {
 
     useEffect(()=>{        
         
-        const updateM = async (val)=>{
+        const updateM = async (val,userId)=>{
             const totalAmount = val.payload.row.amount
             const orderId = val.payload.row.id
             const orderStatus = val.payload.row.orderstatus
@@ -29,12 +29,12 @@ const ApprovePayment = () => {
                 totalAmount : totalAmount,    
                 orderId : orderId,        
                 orderStatus : orderStatus,        
-                card : card
-            }      
+                card : card,
+                userId : userId
+            }
     
             const updResult =await updateTransActionByOrderId(fullData)
-            console.log(updResult)
-            if(updResult ==="yenilendi"){
+            if(updResult.message ==="yenilendi"){
                 setYenilendi('Ödəniş uğurla qəbul edildiş Gözləyin..')
                 window.location.href = ''
             }else{
@@ -79,11 +79,12 @@ const ApprovePayment = () => {
                     }).then((response)=>{
                     return response.json(); 
                     }).then((val)=>{
-                        updateM(val)
+                        updateM(val,userId)
                     }).catch((error) => console.error(error));  
 
                 } catch (error) {
-                    window.location.href = '/'
+                    console.log(error)
+                    //window.location.href = '/'
                 }
             }
 
