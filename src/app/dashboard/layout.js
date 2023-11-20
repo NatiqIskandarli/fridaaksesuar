@@ -21,6 +21,7 @@ const DahsboardLayout = ({children}) => {
 
     const logOut = () =>{
         localStorage.removeItem('fridtoken')
+        localStorage.removeItem('userid')
         router.push('/sign-in');
     }
     
@@ -65,7 +66,7 @@ const DahsboardLayout = ({children}) => {
                     </div>
                 </div>
             </div>            
-            <ServiceTwo />
+            {/* <ServiceTwo /> */}
         </main>
         <FooterTwo />
         </>

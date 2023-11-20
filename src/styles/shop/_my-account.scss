@@ -173,6 +173,85 @@
 	}
 }
 
+.mainSponsor{
+	padding: 15px;
+	margin-right: 10px;
+	border-radius: 5px;
+	border:1px solid #ccc;
+
+	.welcome-text{
+		font-size: 16px !important;
+
+		span{
+			font-weight: bold;
+		}
+	}
+}
+
+.altQruplar{
+	padding: 5px;
+	margin-top: 15px;
+	margin-right: 10px;
+	
+
+	.qollar{
+		padding: 15px;
+		margin-top: 15px;
+		border-radius: 15px;
+		background: #ffffff;
+		border: 1px solid #7c55c1;
+		
+
+		.welcome-text{
+			font-size: 16px !important;
+			
+			span{
+				font-weight: bold;
+			}
+		}
+
+		.qol_ad{
+			font-weight: bold;
+			font-style: italic;
+			color: #000;
+			padding-left: 10px;
+			background-color: #cab9e7;
+			border-radius: 10px;
+			margin-top: 10px;
+			margin-bottom: 2px;
+		}
+		.qol_telefon{
+			font-weight: normal;
+			margin-top: 10px;
+			margin-bottom: 2px;
+			
+		}
+
+		button{
+			max-width: 120px;
+			height: 35px;
+			border-radius: 10px;
+			background-color: var(--color-primary);
+			color: #fff;
+			box-shadow: 2px 2px #292930;
+		}
+
+		.qrupaBax{
+			max-width: 120px;
+			height: 35px;
+			border-radius: 20px;
+			background-color: var(--color-primary);
+			color: #fff;
+			box-shadow: 2px 2px #292930;
+			padding: 10px 15px;
+
+			:hover{
+				color: #fff;
+			}
+		}
+	}
+}
+
 .axil-dashboard-aside {
 	border: 1px solid var(--color-light);
 	padding: 40px 35px 30px;
@@ -183,6 +262,9 @@
 	@media #{$sm-layout} {
 		margin-bottom: 40px;
 	}
+
+
+
 	.nav-tabs {
 		border-bottom: none;
 	}
