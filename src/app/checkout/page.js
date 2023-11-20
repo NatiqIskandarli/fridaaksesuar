@@ -120,7 +120,7 @@ const Checkout = () => {
                         
                         
                         
-                        
+                        {console.log(userIdd)}
                         
                         {userIdd ? "" : 
                         
@@ -353,7 +353,7 @@ const Checkout = () => {
                                     </div> */}
                                     <div className="single-payment">
                                         <div className="input-group justify-content-between align-items-center">
-                                            <input type="radio" {...register("paymentMethod")} id="paypal" value="card" defaultChecked/>
+                                            <input type="radio" {...register("paymentMethod")} id="paypal" defaultValue="card" defaultChecked/>
                                             <label htmlFor="paypal">Kartla ödəniş</label>
                                             <Image 
                                                 src="/images/others/payment.png" 
