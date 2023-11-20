@@ -33,13 +33,18 @@ const ApprovePayment = () => {
                 userId : userId
             }
     
-            const updResult =await updateTransActionByOrderId(fullData)
-            if(updResult.message ==="yenilendi"){
-                setYenilendi('Ödəniş uğurla qəbul edildiş Gözləyin..')
-                window.location.href = ''
+            if(orderStatus === "APPROVED"){
+                const updResult =await updateTransActionByOrderId(fullData)
+                if(updResult.message ==="yenilendi"){
+                    setYenilendi('Ödəniş uğurla qəbul edildi Gözləyin..')
+                    window.location.href = ''
+                }else{
+                    setYenilendi('Gözləyin..')
+                }
             }else{
-                setYenilendi('Gözləyin..')
+                setYenilendi('Ödəniş həyata keçmədi. Yenidən yoxlayın.')
             }
+            
         }
 
 
