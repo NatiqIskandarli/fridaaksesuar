@@ -106,9 +106,12 @@ const OrderPayment = () => {
                         }else{
                             try {                        
                                 const checkReg = await checkOutRegister(upDfullData) 
-                                //console.log(checkReg.user.id)
-
+                                console.log(checkReg)
                                 localStorage.setItem("userid", checkReg.user.id)
+                                if(checkReg.message){
+                                    alert(checkReg.message)
+                                }
+//////////////asagidakini acarsan
                                 window.location.href = `${val.payload.paymentUrl}`;
                             } catch (error) {
                                 console.log(error)

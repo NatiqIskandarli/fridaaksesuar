@@ -11,7 +11,7 @@ import HeaderFive from "@/components/header/HeaderFive";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import { addToOrder } from '@/store/slices/productSlice';
 import HeaderTwo from '@/components/header/HeaderTwo';
-import { checkOutRegister } from '@/http/auth';
+import { findSponsor } from '@/http/auth';
 
 const Checkout = () => {
     const router = useRouter();
@@ -20,9 +20,20 @@ const Checkout = () => {
     const [openShippingForm, setopenShippingForm] = useState(false);
     const cartProducts = useSelector((state) => state.productData);
 
-    const ShippingInfoHandler = (e) => {
-        setopenShippingForm(e.target.checked)
+    const findSponsorUser = async () => {
+        const sponsorName = document.getElementById('sponsorid').value
+        const fullData = {
+            sponsorId: sponsorName,
+        }
+
+        const checksponsor = await findSponsor(fullData) 
+        console.log(checksponsor.message)
     }
+
+
+
+
+
     const {
         register,
         handleSubmit,
@@ -200,7 +211,14 @@ const Checkout = () => {
                                     <div className="col-lg-12">
                                         <div className="form-group">
                                             <label>Hansı qrupa qoşulacaqsız?<span>*</span></label>
-                                            <input type="text" {...register('sponsor', { required: true })} />
+                                            <input type="text" 
+                                            id='sponsorid'
+                                            {...register('sponsor', { required: true })}
+                                            />
+                                            <div 
+                                            onClick={findSponsorUser}
+                                            style={{backgroundColor:"#666", cursor:"pointer", color:"#fff", padding:"10px", marginTop:"10px",width:"60px"}}
+                                            >Axtar</div>
                                             {/* <select {...register('sponsor', { required: true })}>
                                                 <option value="">Qrup seçin</option>
                                                 <option value="1">Natiq</option>

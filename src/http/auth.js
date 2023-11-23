@@ -25,6 +25,11 @@ export const checkOutRegister = async(fullData)=>{
     return data
 }
 
+export const findSponsor = async(fullData)=>{
+    const {data} = await $host.post('api/user/findSponsor',{fullData})
+    return data
+}
+
 export const checkOutSade = async(fullData)=>{
     const {data} = await $host.post('api/product/checkOutSade',{fullData})
     return data

@@ -43,7 +43,7 @@ const AltQrups = ({params}) => {
         <div className="axil-dashboard-overview">    
             <div className="mainSponsor">
                 <div className="welcome-text" style={{marginBottom: "15px"}}>
-                    Ad Soyad: {qrupOzu.ad}
+                    Ad Soyad: {qrupOzu.ad} <b style={{color:"#f00"}}>Kodu : {qrupOzu.id}</b>
                 </div>
                 <div className="welcome-text" style={{marginBottom: "15px", backgroundColor:'#f0ecf7'}}>
                     <u style={{marginLeft:"25px"}}>Sponsor Adı : {qrupOzu.sponsoruKimdir} </u><br/>
@@ -65,7 +65,7 @@ const AltQrups = ({params}) => {
             {altQrup.map((val,key)=>(
                 <div key={key} className="qollar">
                     <div className="welcome-text qol_ad">
-                        Qol  {key+1} : {val.ad}                
+                        Qol  {key+1} : {val.ad}     <b style={{color:"#f00"}}>Kodu : {val.id}</b>    
                     </div>
                     <div className="welcome-text qol_telefon">
                         <span>Telefon : </span>{val.telefon}                
