@@ -97,8 +97,10 @@ const OrderPayment = () => {
                         const getuse = userIdd
                         if(getuse){
                             try {
-                                await checkOutSade(upDfullData)                                
+                                const sadecheck = await checkOutSade(upDfullData)      
+                                if(sadecheck){
                                 window.location.href = `${val.payload.paymentUrl}`;                        
+                                }                          
                             } catch (error) {
                                 console.log(error)
                             }
@@ -112,7 +114,7 @@ const OrderPayment = () => {
                                     alert(checkReg.message)
                                 }
 //////////////asagidakini acarsan
-                                //window.location.href = `${val.payload.paymentUrl}`;
+                                window.location.href = `${val.payload.paymentUrl}`;
                             } catch (error) {
                                 console.log(error)
                             }
