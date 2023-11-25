@@ -111,7 +111,7 @@ const OrderPayment = () => {
                                 console.log(checkReg)
                                 localStorage.setItem("userid", checkReg.user.id)
                                 if(checkReg.message){
-                                    alert(checkReg.message)
+                                    console.log(checkReg.message)
                                 }
 //////////////asagidakini acarsan
                                 window.location.href = `${val.payload.paymentUrl}`;
