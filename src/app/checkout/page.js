@@ -16,21 +16,41 @@ import { findSponsor } from '@/http/auth';
 const Checkout = () => {
     const router = useRouter();
     const [userIdd, setUserIdd] = useState('')
+    const [odenishButton, setOdenishButton] = useState(false)
+    const [mesaj, setMesaj] = useState('')
+    const [okMesaj, setOkMesaj] = useState('')
     const dispatch = useDispatch();
     const [openShippingForm, setopenShippingForm] = useState(false);
     const cartProducts = useSelector((state) => state.productData);
 
     const findSponsorUser = async () => {
+        setOkMesaj('Gözləyin..')
         const sponsorName = document.getElementById('sponsorid').value
         const fullData = {
             sponsorId: sponsorName,
         }
+        try {
+            const checksponsor = await findSponsor(fullData) 
+            if(checksponsor.message){
+                setMesaj(checksponsor.message)
+                setOkMesaj('')
+                setOdenishButton(false)
+            }else{
+                setOkMesaj(`${checksponsor.checkEmail.Profile.firstName} ${checksponsor.checkEmail.Profile.lastName}`)
+                setMesaj('')
+                setOdenishButton(true)
+            }
 
-        const checksponsor = await findSponsor(fullData) 
-        console.log(checksponsor.message)
+        } catch (error) {
+            setMesaj(`Error: ${error.message}`)
+        }        
     }
 
-
+    const aktivB = () =>{
+        setMesaj('')
+        setOkMesaj('')
+        setOdenishButton(false)
+    }
 
 
 
@@ -42,20 +62,19 @@ const Checkout = () => {
 
     useEffect(()=>{
         const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
+        const fridtoken = localStorage.getItem("fridtoken")
+        if(userId === fridtoken){
+            setOdenishButton(true)
+            setUserIdd(userId)
+        }
     },[])
 
     const checkoutFormHandler = async (data, e) => {
         if (data) {
 
-            //register et
-            //profil yarat registerin useridi ile
-            //addtobasket
-            //checkout
-            //sonra asagidakini cagir
-
             const getuse = userIdd
             if(getuse){
+                //setOdenishButton(true)
 
             const fullData = {
                 billingAddress: {
@@ -214,16 +233,23 @@ const Checkout = () => {
                                             <input type="text" 
                                             id='sponsorid'
                                             {...register('sponsor', { required: true })}
+                                            onChange={aktivB}
                                             />
-                                            <div 
-                                            onClick={findSponsorUser}
-                                            style={{backgroundColor:"#666", cursor:"pointer", color:"#fff", padding:"10px", marginTop:"10px",width:"60px"}}
-                                            >Axtar</div>
+                                            
                                             {/* <select {...register('sponsor', { required: true })}>
                                                 <option value="">Qrup seçin</option>
                                                 <option value="1">Natiq</option>
                                             </select> */}
                                             {errors.sponsor && <p className="error">Mütləq qrup qeyd etməlisiz</p>}
+
+                                            {mesaj && <p className="error">{mesaj}</p>}
+                                            {okMesaj && <p className="okMesaj">{okMesaj}</p>}
+                                            
+
+                                            <div 
+                                            onClick={findSponsorUser}
+                                            style={{backgroundColor:"#666", cursor:"pointer", color:"#fff", padding:"10px", marginTop:"10px",width:"60px"}}
+                                            >Axtar</div>
                                         </div>
                                     </div>
 
@@ -305,16 +331,6 @@ const Checkout = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
                         <div className="col-lg-6">
                             <div className="axil-order-summery order-checkout-summery">
                                 <h5 className="title mb--20">Sizin sifarişiniz</h5>
@@ -377,8 +393,11 @@ const Checkout = () => {
                                         </div>
                                         
                                     </div>
-                                </div>
-                                <button type="submit" className="axil-btn btn-bg-primary checkout-btn">Ödəniş et</button>
+                                </div>                                
+                                {!odenishButton ? " " : (
+                                    <button type="submit" className="axil-btn btn-bg-primary checkout-btn" >Ödəniş et</button>
+                                )}
+                                
                             </div>
                         </div>
                     </div>

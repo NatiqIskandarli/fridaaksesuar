@@ -12,7 +12,7 @@ import { async } from 'regenerator-runtime';
 const ApprovePayment = () => {
     const router = useRouter();
     const [userIdd, setUserIdd] = useState('')
-    const [yenilendi, setYenilendi] = useState('')
+    const [yenilendi, setYenilendi] = useState('Gözləyin..')
     const orders = useSelector((state) => state.productData.orderItems);
 
     
@@ -32,14 +32,21 @@ const ApprovePayment = () => {
                 card : card,
                 userId : userId
             }
+
+            //console.log(fullData)
     
             if(orderStatus === "APPROVED"){
                 const updResult =await updateTransActionByOrderId(fullData)
                 if(updResult.message ==="yenilendi"){
-                    setYenilendi('Ödəniş uğurla qəbul edildi Gözləyin..')
-                    window.location.href = ''
+                    setTimeout(()=>{
+                        setYenilendi('Ödəniş uğurla qəbul edildi Gözləyin..')
+                        window.location.href = '/dashboard'
+                    },1500)
                 }else{
-                    setYenilendi('Gözləyin..')
+                    setYenilendi(updResult.message)
+                    setTimeout(()=>{
+                        window.location.href = ''
+                    },1500)
                 }
             }else{
                 setYenilendi('Ödəniş həyata keçmədi. Yenidən yoxlayın.')
@@ -54,38 +61,45 @@ const ApprovePayment = () => {
             const getTransAction = async ()=>{
                 const userId = localStorage.getItem("userid")
                 setUserIdd(userId)
+                
 
                 try {                
                     const result = await getTransActionByUserId(userId);
+                    //console.log(result)
 
                     const orderId = result[0].orderId
                     const sessionId = result[0].sessionId
 
-                    const url = `${process.env.NEXT_PUBLIC_PAYRIFF_GET_ORDER_URL}`;
-        
-                    const data =  {
-                        "body": {
-                            "languageType": "AZ",
-                            "orderId": orderId,
-                            "sessionId": `${sessionId}`
-                        },
-                        "merchant": `${process.env.NEXT_PUBLIC_MERCHANT}`
-                        };
+                    if(orderId){
+
+                        const url = `${process.env.NEXT_PUBLIC_PAYRIFF_GET_ORDER_URL}`;
+            
+                        const data =  {
+                            "body": {
+                                "languageType": "AZ",
+                                "orderId": orderId,
+                                "sessionId": `${sessionId}`
+                            },
+                            "merchant": `${process.env.NEXT_PUBLIC_MERCHANT}`
+                            };
 
 
 
-                    fetch(url,{
-                        method:"POST",
-                        body: JSON.stringify(data),
-                        headers:{
-                            "Content-Type": "application/json",
-                            "Authorization": `${process.env.NEXT_PUBLIC_PAYRIFF_AUTH_KEY}`,
-                        },
-                    }).then((response)=>{
-                    return response.json(); 
-                    }).then((val)=>{
-                        updateM(val,userId)
-                    }).catch((error) => console.error(error));  
+                        fetch(url,{
+                            method:"POST",
+                            body: JSON.stringify(data),
+                            headers:{
+                                "Content-Type": "application/json",
+                                "Authorization": `${process.env.NEXT_PUBLIC_PAYRIFF_AUTH_KEY}`,
+                            },
+                        }).then((response)=>{
+                        return response.json(); 
+                        }).then((val)=>{
+                            console.log(val.payload.row.orderstatus)
+                            updateM(val,userId)
+                        }).catch((error) => console.error(error));  
+
+                    }
 
                 } catch (error) {
                     console.log(error)

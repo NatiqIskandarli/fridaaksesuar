@@ -112,7 +112,7 @@ const OrderPayment = () => {
                                     alert(checkReg.message)
                                 }
 //////////////asagidakini acarsan
-                                window.location.href = `${val.payload.paymentUrl}`;
+                                //window.location.href = `${val.payload.paymentUrl}`;
                             } catch (error) {
                                 console.log(error)
                             }

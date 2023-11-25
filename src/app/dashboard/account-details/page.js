@@ -76,7 +76,7 @@ const AccountDetails = () => {
                             {errors.newRepPassword && <p className="error">Yeni təkrar parolun uzunluğu 6-dan çox olmalıdır.</p>}
                         </div>
                         <div className="form-group mb--0">
-                            <input type="submit" className="axil-btn" value="Yadda saxla" />
+                            {/* <input type="submit" className="axil-btn" value="Yadda saxla" /> */}
                         </div>
                     </div>
                 </div>
