@@ -47,8 +47,8 @@ const OrderPayment = () => {
         
                     const url = `${process.env.NEXT_PUBLIC_PAYRIFF_CREATE_URL}`;
 
-                    //const totalMebleg = latestOrder.totalAmount
-                    const totalMebleg = 0.01
+                    const totalMebleg = latestOrder.totalAmount
+                    //const totalMebleg = 0.01
             
                     const data =  {
                         "body": {
