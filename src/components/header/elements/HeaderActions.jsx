@@ -32,6 +32,11 @@ useEffect(()=>{
   const fridtok = localStorage.getItem("fridtoken")
   if(fridtok){
     setIsLogin(true)
+  }else{
+    if(localStorage.getItem("userid")){
+      localStorage.removeItem('userid')
+      localStorage.removeItem('userEmail')
+    }
   }
 },[isLogin])
 

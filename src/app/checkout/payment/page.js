@@ -39,21 +39,21 @@ const OrderPayment = () => {
                         totalAmount: latestOrder.totalAmount,
                         totalQuantity: latestOrder.totalQuantity,
                         orderDate: latestOrder.orderDate,                        
-                        userId: userIdd ? userIdd : 0,
+                        userId: localStorage.getItem("userid") ? localStorage.getItem("userid") : 0,
                         orderId : 0,
                         sessionId : 0,
-                        transactionId : 0
+                        transactionId : localStorage.getItem("userEmail") ? localStorage.getItem("userEmail") : latestOrder.billingAddress.email
                     }
         
                     const url = `${process.env.NEXT_PUBLIC_PAYRIFF_CREATE_URL}`;
 
-                    const totalMebleg = latestOrder.totalAmount
-                    //const totalMebleg = 0.01
+                    //const totalMebleg = latestOrder.totalAmount
+                    const totalMebleg = 0.01
             
                     const data =  {
                         "body": {
                           "amount": totalMebleg,
-                          "approveURL": `${process.env.NEXT_PUBLIC_APPROVE_URL}`,
+                          "approveURL": `${process.env.NEXT_PUBLIC_APPROVE_URL}?transactionId=${fullData.transactionId}`,
                           "cancelURL": `${process.env.NEXT_PUBLIC_CANCEL_URL}`,
                           "declineURL": `${process.env.NEXT_PUBLIC_DECLINE_URL}`,
                           "currencyType": "AZN",
@@ -62,6 +62,7 @@ const OrderPayment = () => {
                         },
                         "merchant": `${process.env.NEXT_PUBLIC_MERCHANT}`
                     };
+
         
                     fetch(url,{
                         method:"POST",
@@ -90,7 +91,7 @@ const OrderPayment = () => {
         
                         fullData.orderId = val.payload.orderId
                         fullData.sessionId = val.payload.sessionId
-                        fullData.transactionId = val.payload.transactionId       
+                        //fullData.transactionId = val.payload.transactionId
 
                         const upDfullData = fullData
    

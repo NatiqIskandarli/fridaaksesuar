@@ -21,6 +21,7 @@ const DahsboardLayout = ({children}) => {
 
     const logOut = () =>{
         localStorage.removeItem('fridtoken')
+        localStorage.removeItem('userEmail')
         localStorage.removeItem('userid')
         router.push('/sign-in');
     }

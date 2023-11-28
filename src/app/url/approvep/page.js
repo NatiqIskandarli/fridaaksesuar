@@ -19,7 +19,7 @@ const ApprovePayment = () => {
 
     useEffect(()=>{        
         
-        const updateM = async (val,userId)=>{
+        const updateM = async (val,userId,transactionId)=>{
             const totalAmount = val.payload.row.amount
             const orderId = val.payload.row.id
             const orderStatus = val.payload.row.orderstatus
@@ -30,8 +30,12 @@ const ApprovePayment = () => {
                 orderId : orderId,        
                 orderStatus : orderStatus,        
                 card : card,
-                userId : userId
+                userId : userId,
+                transactionId : transactionId
             }
+
+   
+
 
             //console.log(fullData)
     
@@ -40,13 +44,13 @@ const ApprovePayment = () => {
                 if(updResult.message ==="yenilendi"){
                     setTimeout(()=>{
                         setYenilendi('Ödəniş uğurla qəbul edildi Gözləyin..')
-                        window.location.href = '/dashboard'
+                       // window.location.href = '/dashboard'
                     },1500)
                 }else{
                     setYenilendi(updResult.message)
-                    setTimeout(()=>{
-                        window.location.href = ''
-                    },1500)
+                    // setTimeout(()=>{
+                    //     window.location.href = ''
+                    // },1500)
                 }
             }else{
                 setYenilendi('Ödəniş həyata keçmədi. Yenidən yoxlayın.')
@@ -60,19 +64,26 @@ const ApprovePayment = () => {
 
             const getTransAction = async ()=>{
                 const userId = localStorage.getItem("userid")
+
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const transactionId = urlParams.get('transactionId');
+                //console.log(transactionId)
                 setUserIdd(userId)
                 
 
                 try {                
-                    const result = await getTransActionByUserId(userId);
+                    const result = await getTransActionByUserId(transactionId);
                     //console.log(result)
 
                     const orderId = result[0].orderId
                     const sessionId = result[0].sessionId
+                    
 
                     if(orderId){
 
                         const url = `${process.env.NEXT_PUBLIC_PAYRIFF_GET_ORDER_URL}`;
+                        
             
                         const data =  {
                             "body": {
@@ -95,8 +106,8 @@ const ApprovePayment = () => {
                         }).then((response)=>{
                         return response.json(); 
                         }).then((val)=>{
-                            console.log(val.payload.row.orderstatus)
-                            updateM(val,userId)
+                            console.log(val)
+                            updateM(val,userId,transactionId)
                         }).catch((error) => console.error(error));  
 
                     }
