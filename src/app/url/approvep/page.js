@@ -39,22 +39,22 @@ const ApprovePayment = () => {
 
             //console.log(fullData)
     
-            if(orderStatus === "APPROVED"){
+            // if(orderStatus === "APPROVED"){
                 const updResult =await updateTransActionByOrderId(fullData)
                 if(updResult.message ==="yenilendi"){
                     setTimeout(()=>{
                         setYenilendi('Ödəniş uğurla qəbul edildi Gözləyin..')
-                       // window.location.href = '/dashboard'
+                       window.location.href = '/dashboard'
                     },1500)
                 }else{
                     setYenilendi(updResult.message)
-                    // setTimeout(()=>{
-                    //     window.location.href = ''
-                    // },1500)
+                    setTimeout(()=>{
+                        window.location.href = ''
+                    },1500)
                 }
-            }else{
-                setYenilendi('Ödəniş həyata keçmədi. Yenidən yoxlayın.')
-            }
+            // }else{
+            //     setYenilendi('Ödəniş həyata keçmədi. Yenidən yoxlayın.')
+            // }
             
         }
 
@@ -114,7 +114,7 @@ const ApprovePayment = () => {
 
                 } catch (error) {
                     console.log(error)
-                    //window.location.href = '/'
+                    window.location.href = '/'
                 }
             }
 
