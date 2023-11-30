@@ -53,7 +53,7 @@ const AltQrups = ({params}) => {
                     <span>Email :</span> {qrupOzu.email}                
                 </div>
                 <div className="welcome-text" style={{marginBottom: "2px"}}>
-                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc) : 0} AZN
+                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc).toFixed() : 0} AZN
                 </div>
                 <div className="welcome-text" style={{marginBottom: "5px"}}>
                     <span>Vəzifəsi :</span> {qrupOzu.vezifesi}
@@ -71,7 +71,7 @@ const AltQrups = ({params}) => {
                         <span>Telefon : </span>{val.telefon}                
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
-                        <span>Balans : </span>{val.qazanc ? parseFloat(val.qazanc) : 0} AZN
+                        <span>Balans : </span>{val.qazanc ? parseFloat(val.qazanc).toFixed() : 0} AZN
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
                         <span>Vəzifəsi : </span>{val.vezifesi}

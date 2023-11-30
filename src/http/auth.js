@@ -138,3 +138,15 @@ export const check = async ()=>{
     const decodedToken = parseJwt(data.token);
     return decodedToken
 }
+
+
+
+export const userAxtarTap = async(fullData)=>{
+    try {
+        const {data} = await $host.post('api/user/getUser',{fullData})
+        return data
+    } catch (error) {
+        console.error('Error save adress:', error);
+        throw error;
+    }    
+}

@@ -14,7 +14,11 @@ const SignUp = () => {
         try {
             let data = await addNetworkUser(email,password,sponsorId)
             console.log(data)
+            localStorage.setItem("userid", dataResult.userid)                
+            dispatch(DaxilOl(dataResult.userid));
+            router.push('/dashboard');
             setIsAuth(true)
+            window.location.href='/dashboard'
         } catch (error) {
             console.log(error)
         }        
@@ -26,8 +30,8 @@ const SignUp = () => {
 
     return ( 
         <div className="axil-signin-form">
-            <h3 className="title">I&apos;m New Here</h3>
-            <p className="b2 mb--55">Enter your detail below</p>
+            <h3 className="title">Qeydiyyat</h3>
+            <p className="b2 mb--55">Məlumatlarınızı qeyd edin</p>
             <form className="singin-form">
                 <div className="form-group">
                     <label>Choose Sponsor</label>
@@ -36,7 +40,7 @@ const SignUp = () => {
                         className="form-control"
                         onChange={(e)=>setSponsorId(e.target.value)}
                         placeholder="admin"/>
-                    {sponsorId && <p className="error">sponsorId is required.</p>}
+                    {sponsorId && <p className="error">Sponsor kodu mütləqdir</p>}
                 </div>
                 <div className="form-group">
                     <label>Email</label>
@@ -45,19 +49,19 @@ const SignUp = () => {
                         className="form-control"
                         onChange={(e)=>setEmail(e.target.value)} 
                         placeholder="annie@example.com" />
-                    {email && <p className="error">Email is required.</p>}
+                    {email && <p className="error">Email mütləqdir</p>}
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Parol</label>
                     <input 
                         type="password" 
                         className="form-control"
                         onChange={(e)=>setPassword(e.target.value)} />
-                    {password && <p className="error">Password is required.</p>}
+                    {password && <p className="error">Parol mütləqdir</p>}
                 </div>
                 <div className="form-group">
-                    <button type="button" className="axil-btn btn-bg-primary submit-btn" onClick={handleSubmit}>Create Account</button>
-                    {isAuth && <p className="success">Account Created successfully</p> }
+                    <button type="button" className="axil-btn btn-bg-primary submit-btn" onClick={handleSubmit}>Hesab yarat</button>
+                    {isAuth && <p className="success">Hesabınız uğurla yaradıldı</p> }
                 </div>
             </form>
         </div>
