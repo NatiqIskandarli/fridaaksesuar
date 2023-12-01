@@ -11,8 +11,10 @@ const Balans = () => {
     const [qrupOzu, setQrupOzu] = useState([])
     const [qrupSay, setQrupSay] = useState(0)
     const [altQrup, setAltQrup] = useState([])
+    const [seconds, setSeconds] = useState(0);
    
     useEffect(()=>{
+        
         const fetchProfit = async () =>{
             
             const userId = localStorage.getItem("userid")
@@ -27,6 +29,7 @@ const Balans = () => {
             setAltQrup(getQrupList.downlineUsers)
         }
         fetchProfit()
+
     },[userIdd])
 
 
@@ -58,7 +61,7 @@ const Balans = () => {
             </div>
             <div className="altQruplar">
             {altQrup.map((val,key)=>(
-                <div key={key} className="qollar">
+                <div key={key.id} className="qollar">
                     <div className="welcome-text qol_ad">
                         Qol  {key+1} : {val.ad} <b style={{color:"#f00"}}>Kodu : {val.id}</b>
                     </div>
@@ -80,7 +83,7 @@ const Balans = () => {
                     <div className="welcome-text">
                         {/* <button onClick={()=>altQrupCagir(val.id, val.email)}>Qrupa bax</button> */}
                         <Link 
-                        href={`dashboard/${val.id}`}
+                        href={`${val.id}`}
                         target="_blank"
                         className="qrupaBax"
                         >Qrupa bax</Link>

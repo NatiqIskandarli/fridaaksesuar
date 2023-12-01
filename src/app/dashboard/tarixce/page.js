@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Tarixce = () => {
     const [userIdd, setUserIdd] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingIki, setIsLoadingIki] = useState(false)
     const [qrupOzu, setQrupOzu] = useState([])
     const [qrupSay, setQrupSay] = useState(0)
     const [altQrup, setAltQrup] = useState([])
@@ -17,8 +18,8 @@ const Tarixce = () => {
         if(tarixTap === ''){
             alert('Axtarmaq istədiyini tarixi seçin')
         }else{
+            setIsLoadingIki(true)
             const yearMonth = tarixTap.substring(0, 7);
-            console.log(yearMonth)
             
             // const currentDate = new Date();
             // const year = currentDate.getFullYear();
@@ -30,6 +31,7 @@ const Tarixce = () => {
             const getQrupList =  await getQrupTarixce(userId,yearMonth)
             if(getQrupList){
                 setIsLoading(true)
+                setIsLoadingIki(false)
             }
             setQrupOzu(getQrupList.sponsorunOzu)
             setQrupSay(getQrupList.downlineCount)
@@ -89,6 +91,8 @@ const Tarixce = () => {
             </div>
         </form>
 
+        {isLoadingIki ? <h3>Gözləyin...</h3> : ''}
+
         {isLoading ? 
         <div className="axil-dashboard-overview">    
             <div className="mainSponsor">
@@ -146,7 +150,7 @@ const Tarixce = () => {
             </div>                    
         </div>
 
-        : <h3>Gözləyin...</h3>
+        : ''
         }
         </>
      );
