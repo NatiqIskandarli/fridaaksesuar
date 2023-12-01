@@ -124,6 +124,16 @@ export const getQrup = async(userId)=>{
     }
 }
 
+export const getQrupTarixce = async(userId,tarix)=>{
+    try {
+        const {data} = await $host.get(`api/user/${userId}/downlineTarixce/${tarix}`)
+        return data
+    } catch (error) {
+        console.error('Error fetching qrup:', error);
+        throw error;
+    }
+}
+
 
 export const login = async (email, password)=>{
     const {data} = await $host.post('api/user/login', {email, password})

@@ -1,41 +1,33 @@
 'use client';
-import { getBalansById, getQrup } from "@/http/auth";
+import { getBalansById, getQrup,userAxtarTap } from "@/http/auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
-const AltQrups = ({params}) => {
-    const [balans, setBalans] = useState('')
-    const [vezife, setVezife] = useState('')
+const Balans = () => {
     const [userIdd, setUserIdd] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [qrupOzu, setQrupOzu] = useState([])
-    const [altQrup, setAltQrup] = useState([])
     const [qrupSay, setQrupSay] = useState(0)
-
-
-
+    const [altQrup, setAltQrup] = useState([])
+   
     useEffect(()=>{
         const fetchProfit = async () =>{
-            try {
-                const userId = localStorage.getItem("userid")
-                setUserIdd(userId)
-                if(userId){
-                    const getQrupList =  await getQrup(params.id)
-                    if(getQrupList){
-                        setIsLoading(true)
-                    }
-                    setQrupOzu(getQrupList.sponsorunOzu)
-                    setQrupSay(getQrupList.downlineCount)
-                    setAltQrup(getQrupList.downlineUsers)
-                }                
-            } catch (error) {
-                console.log(error)
+            
+            const userId = localStorage.getItem("userid")
+            setUserIdd(userId)
+
+            const getQrupList =  await getQrup(userId)
+            if(getQrupList){
+                setIsLoading(true)
             }
+            setQrupOzu(getQrupList.sponsorunOzu)
+            setQrupSay(getQrupList.downlineCount)
+            setAltQrup(getQrupList.downlineUsers)
         }
         fetchProfit()
-    },[params])
+    },[userIdd])
 
 
 
@@ -55,7 +47,7 @@ const AltQrups = ({params}) => {
                     <span>Email :</span> {qrupOzu.email}                
                 </div>
                 <div className="welcome-text" style={{marginBottom: "2px"}}>
-                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc).toFixed() : 0} AZN
+                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc) : 0} AZN
                 </div>
                 <div className="welcome-text" style={{marginBottom: "5px"}}>
                     <span>Vəzifəsi :</span> {qrupOzu.vezifesi}
@@ -68,13 +60,13 @@ const AltQrups = ({params}) => {
             {altQrup.map((val,key)=>(
                 <div key={key} className="qollar">
                     <div className="welcome-text qol_ad">
-                        Qol  {key+1} : {val.ad}     <b style={{color:"#f00"}}>Kodu : {val.id}</b>    
+                        Qol  {key+1} : {val.ad} <b style={{color:"#f00"}}>Kodu : {val.id}</b>
                     </div>
                     <div className="welcome-text qol_telefon">
                         <span>Telefon : </span>{val.telefon}                
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
-                        <span>Balans : </span>{val.qazanc ? parseFloat(val.qazanc).toFixed() : 0} AZN
+                        <span>Balans : </span>{parseFloat(val.qazanc) ? parseFloat(val.qazanc).toFixed() : 0} AZN
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
                         <span>Vəzifəsi : </span>{val.vezifesi}
@@ -88,7 +80,7 @@ const AltQrups = ({params}) => {
                     <div className="welcome-text">
                         {/* <button onClick={()=>altQrupCagir(val.id, val.email)}>Qrupa bax</button> */}
                         <Link 
-                        href={`${val.id}`}
+                        href={`dashboard/${val.id}`}
                         target="_blank"
                         className="qrupaBax"
                         >Qrupa bax</Link>
@@ -96,7 +88,7 @@ const AltQrups = ({params}) => {
                 </div>
             ))} 
             </div>
-                    
+                   
         </div>
 
         : <h3>Yüklənir... Gözləyin...</h3>
@@ -105,4 +97,4 @@ const AltQrups = ({params}) => {
      );
 }
  
-export default AltQrups;
+export default Balans;

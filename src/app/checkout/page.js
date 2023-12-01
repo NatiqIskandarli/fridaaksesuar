@@ -11,7 +11,7 @@ import HeaderFive from "@/components/header/HeaderFive";
 import ServiceTwo from "@/components/services/ServiceTwo";
 import { addToOrder } from '@/store/slices/productSlice';
 import HeaderTwo from '@/components/header/HeaderTwo';
-import { findSponsor } from '@/http/auth';
+import { findSponsor,getBalansById } from '@/http/auth';
 
 const Checkout = () => {
     const router = useRouter();
@@ -19,6 +19,7 @@ const Checkout = () => {
     const [odenishButton, setOdenishButton] = useState(false)
     const [mesaj, setMesaj] = useState('')
     const [okMesaj, setOkMesaj] = useState('')
+    const [userBalans, setUserBalans] = useState(0)
     const dispatch = useDispatch();
     const [openShippingForm, setopenShippingForm] = useState(false);
     const cartProducts = useSelector((state) => state.productData);
@@ -66,6 +67,15 @@ const Checkout = () => {
         if(userId === fridtoken){
             setOdenishButton(true)
             setUserIdd(userId)
+
+            const fetchProfit = async () =>{
+                const getUserBalans =  await getBalansById(userId)
+                if(getUserBalans){
+                    //setUserBalans(getUserBalans.earnedMoney)//
+                    setUserBalans(6)
+                }
+            }
+            fetchProfit()
         }
     },[])
 
@@ -90,12 +100,22 @@ const Checkout = () => {
                 sponsorId: getuse,    
                 items: cartProducts.cartItems,
                 totalAmount: cartProducts.cartTotalAmount,
+                userBalansAmount: userBalans,
                 totalQuantity: cartProducts.cartQuantityTotal,
                 orderDate: new Date().toLocaleString(),
             }
             try {
                 // const payAndRegister = await checkOutRegister(fullData)
                 // console.log(payAndRegister)
+
+                // if(userBalans === 0){
+                //     router.push('checkout/payment');
+                //     dispatch(addToOrder(fullData));
+                // }else if(userBalans > cartProducts.cartTotalAmount){
+                //     fullData.totalAmount = userBalans-cartProducts.cartTotalAmount
+                // }else if(userBalans < cartProducts.cartTotalAmount){
+                //     fullData.totalAmount = cartProducts.cartTotalAmount - userBalans
+                // }
 
                 router.push('checkout/payment');
                 dispatch(addToOrder(fullData));
@@ -357,22 +377,11 @@ const Checkout = () => {
     //                                                 <td>{items.salePrice ? items.salePrice : items.price} AZN</td>
     //                                             </tr>
     //                                         ))}
+                                            
     //                                         <tr className="order-subtotal">
     //                                             <td>Məbləğ</td>
     //                                             <td>{cartProducts.cartTotalAmount} AZN</td>
     //                                         </tr>
-    //                                         {/* <tr className="order-shipping">
-    //                                             <td colSpan={2}>
-    //                                                 <div className="shipping-amount">
-    //                                                     <span className="title">Çatdırılma</span>
-    //                                                     <span className="amount">5 AZN</span>
-    //                                                 </div>                                                   
-    //                                                 <div className="input-group">
-    //                                                     <input type="radio" id="radio2" name="shipping" defaultChecked/>
-    //                                                     <label htmlFor="radio2">Ödənişli : 5 azn</label>
-    //                                                 </div>
-    //                                             </td>
-    //                                         </tr> */}
     //                                         <tr className="order-total">
     //                                             <td>Cəmi məbləğ</td>
     //                                             <td className="order-total-amount">{cartProducts.cartTotalAmount} AZN</td>
@@ -381,13 +390,10 @@ const Checkout = () => {
     //                                 </table>
     //                             </div>
     //                             <div className="order-payment-method">                                    
-    //                                 {/* <div className="single-payment">
-    //                                     <div className="input-group">
-    //                                         <input type="radio" {...register("paymentMethod")} id="cash" value="cash" />
-    //                                         <label htmlFor="cash">Cash on delivery</label>
-    //                                     </div>
-    //                                     <p>Pay with cash upon delivery.</p>
-    //                                 </div> */}
+    //                                 <div className="single-payment">
+    //                                     <p style={{textDecoration:'underline',color:'#f00'}}>Yuxarıdakı cəmi məbləğ balansınızdan çıxılacaqdır</p>
+    //                                     <p>Balansınız : {userBalans} azn</p>
+    //                                 </div>
     //                                 <div className="single-payment">
     //                                     <div className="input-group justify-content-between align-items-center">
     //                                         <input type="radio" {...register("paymentMethod")} id="paypal" defaultValue="card" defaultChecked/>

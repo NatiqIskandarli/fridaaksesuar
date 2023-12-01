@@ -177,8 +177,18 @@ const CateMenu = [
 const DashboardAsideMenu = [
     {
       icon: "fas fa-th-large",
-      name: "Balans",
+      name: "Kabinet",
       slug: ""
+    },
+    {
+        icon: "fas fa-th-large",
+        name: "Balans",
+        slug: "balans"
+    },
+    {
+        icon: "fas fa-th-large",
+        name: "Dövriyyə tarixçə",
+        slug: "tarixce"
     },
     {
       icon: "fas fa-shopping-basket",

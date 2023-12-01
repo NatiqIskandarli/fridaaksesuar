@@ -1,46 +1,94 @@
 'use client';
-import { getBalansById, getQrup } from "@/http/auth";
+import { getQrupTarixce } from "@/http/auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
-const AltQrups = ({params}) => {
-    const [balans, setBalans] = useState('')
-    const [vezife, setVezife] = useState('')
+const Tarixce = () => {
     const [userIdd, setUserIdd] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [qrupOzu, setQrupOzu] = useState([])
-    const [altQrup, setAltQrup] = useState([])
     const [qrupSay, setQrupSay] = useState(0)
+    const [altQrup, setAltQrup] = useState([])
+    const [tarixTap, setTarixTap] = useState('')
+
+    const axtarUser = async ()=>{
+        if(tarixTap === ''){
+            alert('Axtarmaq istədiyini tarixi seçin')
+        }else{
+            const yearMonth = tarixTap.substring(0, 7);
+            console.log(yearMonth)
+            
+            // const currentDate = new Date();
+            // const year = currentDate.getFullYear();
+            // const month = currentDate.getMonth();//noyabr
+            // const tarix = year+'-'+month
+            
+            const userId = localStorage.getItem("userid")
+
+            const getQrupList =  await getQrupTarixce(userId,yearMonth)
+            if(getQrupList){
+                setIsLoading(true)
+            }
+            setQrupOzu(getQrupList.sponsorunOzu)
+            setQrupSay(getQrupList.downlineCount)
+            setAltQrup(getQrupList.downlineUsers)
 
 
+        }        
+    }
+   
 
     useEffect(()=>{
-        const fetchProfit = async () =>{
-            try {
-                const userId = localStorage.getItem("userid")
-                setUserIdd(userId)
-                if(userId){
-                    const getQrupList =  await getQrup(params.id)
-                    if(getQrupList){
-                        setIsLoading(true)
-                    }
-                    setQrupOzu(getQrupList.sponsorunOzu)
-                    setQrupSay(getQrupList.downlineCount)
-                    setAltQrup(getQrupList.downlineUsers)
-                }                
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetchProfit()
-    },[params])
+        // const fetchProfit = async () =>{
+        //     const currentDate = new Date();
+        //     const year = currentDate.getFullYear();
+        //     const month = currentDate.getMonth();//noyabr
+        //     const tarix = year+'-'+month
+            
+        //     const userId = localStorage.getItem("userid")
+        //     setUserIdd(userId)
+
+        //     const getQrupList =  await getQrupTarixce(userId,tarix)
+        //     if(getQrupList){
+        //         setIsLoading(true)
+        //     }
+        //     setQrupOzu(getQrupList.sponsorunOzu)
+        //     setQrupSay(getQrupList.downlineCount)
+        //     setAltQrup(getQrupList.downlineUsers)
+        // }
+        // fetchProfit()
+        const userId = localStorage.getItem("userid")
+        setUserIdd(userId)
+    },[userIdd])
 
 
 
     return ( 
         <>
+
+        <form className="account-details-form" style={{marginBottom: "35px"}}>
+            <div className="row">                
+                <div className="col-lg-12">
+                    <div className="form-group">
+                        <label>Tarix seçimi edin</label>
+                        <input type="date" className="form-control" onChange={(e)=>setTarixTap(e.target.value)}/>
+                        
+                    </div>
+                </div>
+                <div className="col-lg-12">
+                    <div className="form-group mb--0">
+                        <input type="button" 
+                        className="axil-btn" 
+                        value="Axtar" 
+                        onClick={axtarUser}
+                        style={{width:"150px",backgroundColor:"#7c55c1", color:"#fff"}}/>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         {isLoading ? 
         <div className="axil-dashboard-overview">    
             <div className="mainSponsor">
@@ -55,7 +103,7 @@ const AltQrups = ({params}) => {
                     <span>Email :</span> {qrupOzu.email}                
                 </div>
                 <div className="welcome-text" style={{marginBottom: "2px"}}>
-                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc).toFixed() : 0} AZN
+                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc) : 0} AZN
                 </div>
                 <div className="welcome-text" style={{marginBottom: "5px"}}>
                     <span>Vəzifəsi :</span> {qrupOzu.vezifesi}
@@ -68,13 +116,13 @@ const AltQrups = ({params}) => {
             {altQrup.map((val,key)=>(
                 <div key={key} className="qollar">
                     <div className="welcome-text qol_ad">
-                        Qol  {key+1} : {val.ad}     <b style={{color:"#f00"}}>Kodu : {val.id}</b>    
+                        Qol  {key+1} : {val.ad} <b style={{color:"#f00"}}>Kodu : {val.id}</b>
                     </div>
                     <div className="welcome-text qol_telefon">
                         <span>Telefon : </span>{val.telefon}                
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
-                        <span>Balans : </span>{val.qazanc ? parseFloat(val.qazanc).toFixed() : 0} AZN
+                        <span>Balans : </span>{parseFloat(val.qazanc) ? parseFloat(val.qazanc).toFixed() : 0} AZN
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
                         <span>Vəzifəsi : </span>{val.vezifesi}
@@ -88,21 +136,20 @@ const AltQrups = ({params}) => {
                     <div className="welcome-text">
                         {/* <button onClick={()=>altQrupCagir(val.id, val.email)}>Qrupa bax</button> */}
                         <Link 
-                        href={`${val.id}`}
+                        href={`dashboard/${val.id}`}
                         target="_blank"
                         className="qrupaBax"
                         >Qrupa bax</Link>
                     </div>
                 </div>
             ))} 
-            </div>
-                    
+            </div>                    
         </div>
 
-        : <h3>Yüklənir... Gözləyin...</h3>
+        : <h3>Gözləyin...</h3>
         }
         </>
      );
 }
  
-export default AltQrups;
+export default Tarixce;
