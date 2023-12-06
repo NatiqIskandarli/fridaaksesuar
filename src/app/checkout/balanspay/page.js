@@ -5,7 +5,7 @@ import Section from "@/components/elements/Section";
 import FooterTwo from "@/components/footer/FooterTwo";
 import HeaderFive from "@/components/header/HeaderFive";
 import HeaderTwo from "@/components/header/HeaderTwo";
-import { checkOutRegister } from '@/http/auth';
+import { checkOutBalansdan } from '@/http/auth';
 
 const BalansPay = () => {
     const router = useRouter();
@@ -29,14 +29,19 @@ const BalansPay = () => {
                 sponsorId: latestOrder.sponsorId,
                 items: latestOrder.items,
                 totalAmount: latestOrder.totalAmount,
+                userWalletAmount: latestOrder.userWalletAmount,
                 totalQuantity: latestOrder.totalQuantity,
                 orderDate: latestOrder.orderDate,
             }
             console.log(fullData)
-            //const payAndRegister = await checkOutRegister(fullData)
-            //console.log(payAndRegister)
+            try{
+                const balansdanCheck = await checkOutBalansdan(fullData)
+                //router.push('checkout/order-received');
 
-            router.push('checkout/order-received');
+            }catch(err){
+                console.log(err)
+            }
+
 
         } catch (error) {
             console.log(error)
@@ -58,7 +63,8 @@ const BalansPay = () => {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th>Total</th>
+                                        <th>Məbləğ</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,7 +75,7 @@ const BalansPay = () => {
                                 </tbody>
                                 <tfoot>                                   
                                     <tr>
-                                        <th>Total:</th>
+                                        <th>Cəmi Məbləğ:</th>
                                         <th>{latestOrder.totalAmount}</th>
                                     </tr>
                                 </tfoot>

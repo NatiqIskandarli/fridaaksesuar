@@ -42,7 +42,7 @@ const UserOrders = () => {
                         <tr key={sifaris}>
                             <th scope="row">#{sifaris.id}</th>
                             <td>{formatDate(sifaris.createdAt)}</td>
-                            <td>{sifaris.totalAmount} AZN</td>
+                            <td>{sifaris.totalAmount} AZN (kart)</td>
                             <td>
                                 <Link href={`dashboard/orders/view/${sifaris.id}`} className="axil-btn view-btn">Ətraflı</Link>
                             </td>

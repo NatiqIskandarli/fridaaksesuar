@@ -160,3 +160,13 @@ export const userAxtarTap = async(fullData)=>{
         throw error;
     }    
 }
+
+export const getWalletById = async(userId)=>{
+    const {data} = await $host.get(`api/profit/getWalletById/${userId}`)
+    return data
+}
+
+export const checkOutBalansdan = async(fullData)=>{
+    const {data} = await $host.post('api/product/checkOutBalansdan',{fullData})
+    return data
+}

@@ -1,5 +1,5 @@
 'use client';
-import { getBalansById, getQrup,userAxtarTap } from "@/http/auth";
+import { getQrup,userAxtarTap,getWalletById } from "@/http/auth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ const Dashboard = () => {
     const [isLoadingUc, setIsLoadingUc] = useState(false)
     const [qrupSay, setQrupSay] = useState(0)
     const [altIkiQrup, setAltIkiQrup] = useState([])
+    const [userWallet, setUserWallet] = useState(0)
     
     const axtarUser = async ()=>{
         if(userTap === ''){
@@ -24,12 +25,27 @@ const Dashboard = () => {
             }
         }        
     }
+
+    useEffect(()=>{
+        const userId = localStorage.getItem("userid")
+        const fridtoken = localStorage.getItem("fridtoken")
+        if(userId === fridtoken){
+            const fetchWallet = async () =>{
+                const getUserWallet =  await getWalletById(userId)
+                if(getUserWallet){
+                    setUserWallet(getUserWallet.qaliq)
+                    //setUserWallet(6)
+                }
+            }
+            fetchWallet()
+        }
+    },[])
     
 
     return ( 
         <>
-
-        <form className="account-details-form" style={{marginBottom: "35px"}}>
+        <h4>Pul qabı : {userWallet} AZN</h4>
+        <form className="account-details-form" style={{marginBottom: "35px", marginTop:'50px'}}>
             <div className="row">                
                 <div className="col-lg-12">
                     <div className="form-group">

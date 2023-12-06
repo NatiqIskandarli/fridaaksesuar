@@ -98,7 +98,7 @@ const OrderPayment = () => {
                         const getuse = userIdd
                         if(getuse){
                             try {
-                                const sadecheck = await checkOutSade(upDfullData)      
+                                const sadecheck = await checkOutSade(upDfullData)
                                 if(sadecheck){
                                 window.location.href = `${val.payload.paymentUrl}`;                        
                                 }                          
