@@ -13,14 +13,14 @@ const ProductThumbnail = (props) => {
             }
             width={props.width ?? 300}
             height={props.height ?? 300}
-            alt={props.productThumb.title}
+            alt='frida aksesuar'
           />
           {props.productThumb.hoverThumbnail && props.isHoverThumbnail ? (
             <Image
               src={props.productThumb.hoverThumbnail}
               width={props.width ?? 300}
               height={props.height ?? 300}
-              alt={props.productThumb.title}
+              alt='frida aksesuar'
               className="hover-img"
             />
           ) : (

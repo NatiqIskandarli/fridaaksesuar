@@ -58,7 +58,7 @@ export const getMyOrders = async(userId)=>{
     } catch (error) {
         console.error('Error fetching order:', error);
         throw error;
-    }    
+    }
 }
 
 export const getMyOrderById = async (orderId, userId) => {
@@ -116,7 +116,12 @@ export const saveMyPass = async(fullData)=>{
 
 export const getQrup = async(userId)=>{
     try {
-        const {data} = await $host.get(`api/user/${userId}/downline`)
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth()+1;
+        const tarix = year+'-'+month
+
+        const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
         return data
     } catch (error) {
         console.error('Error fetching qrup:', error);
@@ -126,7 +131,7 @@ export const getQrup = async(userId)=>{
 
 export const getQrupTarixce = async(userId,tarix)=>{
     try {
-        const {data} = await $host.get(`api/user/${userId}/downlineTarixce/${tarix}`)
+        const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
         return data
     } catch (error) {
         console.error('Error fetching qrup:', error);

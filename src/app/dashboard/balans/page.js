@@ -50,7 +50,7 @@ const Balans = () => {
                     <span>Email :</span> {qrupOzu.email}                
                 </div>
                 <div className="welcome-text" style={{marginBottom: "2px"}}>
-                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc) : 0} AZN
+                    <span>Balans :</span> {qrupOzu.qazanc ? parseFloat(qrupOzu.qazanc).toFixed(2) : 0} AZN
                 </div>
                 <div className="welcome-text" style={{marginBottom: "5px"}}>
                     <span>Vəzifəsi :</span> {qrupOzu.vezifesi}
@@ -69,7 +69,7 @@ const Balans = () => {
                         <span>Telefon : </span>{val.telefon}                
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
-                        <span>Balans : </span>{parseFloat(val.qazanc) ? parseFloat(val.qazanc).toFixed() : 0} AZN
+                        <span>Balans : </span>{parseFloat(val.qazanc) ? parseFloat(val.qazanc).toFixed(2) : 0} AZN
                     </div>
                     <div className="welcome-text" style={{marginBottom: "2px"}}>
                         <span>Vəzifəsi : </span>{val.vezifesi}

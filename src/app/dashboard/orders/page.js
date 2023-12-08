@@ -17,8 +17,7 @@ const UserOrders = () => {
             const userId = localStorage.getItem("userid")
             setUserIdd(userId)
             const getOrders = await getMyOrders(userId);
-            //console.log(getOrders.dovriyye)
-            setSifarisler([getOrders.dovriyye ? getOrders.dovriyye : ""])
+            setSifarisler(getOrders.dovriyye ? getOrders.dovriyye : "")
         }
         fetchOrders()
     },[])
@@ -37,9 +36,9 @@ const UserOrders = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {sifarisler.map((sifaris)=> (
+                        {sifarisler.map((sifaris,key)=> (
                         <>
-                        <tr key={sifaris}>
+                        <tr key={key}>
                             <th scope="row">#{sifaris.id}</th>
                             <td>{formatDate(sifaris.createdAt)}</td>
                             <td>{sifaris.totalAmount} AZN (kart)</td>

@@ -21,7 +21,7 @@ const AltQrups = ({params}) => {
             try {
                 const userId = localStorage.getItem("userid")
                 setUserIdd(userId)
-                if(userId){
+                if(userId !== null){
                     const getQrupList =  await getQrup(params.id)
                     if(getQrupList){
                         setIsLoading(true)

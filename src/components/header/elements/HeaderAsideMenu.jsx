@@ -57,10 +57,15 @@ const HeaderAsideMenu = () => {
 
 	useEffect(() => {		
     const fetchListCat = async () =>{
-      const getListCat = await getListCategory()      
-      setCategory(getListCat)
+      try {
+        const getListCat = await getListCategory()      
+        setCategory(getListCat)
 
-      await fetchSubCat(getListCat)
+        await fetchSubCat(getListCat)
+      } catch (error) {
+        console.log(error.message)
+      }
+      
     }
 
     const fetchSubCat = async (getListCat) => {

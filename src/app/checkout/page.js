@@ -37,7 +37,7 @@ const Checkout = () => {
                 setOkMesaj('')
                 setOdenishButton(false)
             }else{
-                setOkMesaj(`${checksponsor.checkEmail.Profile.firstName} ${checksponsor.checkEmail.Profile.lastName}`)
+                setOkMesaj(`${checksponsor.checkEmail.profile.firstName} ${checksponsor.checkEmail.profile.lastName}`)
                 setMesaj('')
                 setOdenishButton(true)
             }
@@ -64,101 +64,100 @@ const Checkout = () => {
     useEffect(()=>{
         const userId = localStorage.getItem("userid")
         const fridtoken = localStorage.getItem("fridtoken")
-        if(userId === fridtoken){
+        if(userId !== null && fridtoken !== null && userId === fridtoken){
             setOdenishButton(true)
             setUserIdd(userId)
 
-            // const fetchProfit = async () =>{
-            //     const getUserWallet =  await getWalletById(userId)
-            //     if(getUserWallet){
-            //         setUserWallet(getUserWallet.qaliq)
-            //         //setUserWallet(6)
-            //     }
-            // }
-            // fetchProfit()
+            const fetchProfit = async () =>{
+                try {
+                    console.log(userId,'wallet')
+                    const getUserWallet =  await getWalletById(userId)
+                    setUserWallet(getUserWallet.qaliq)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchProfit()
         }
     },[])
 
     const checkoutFormHandler = async (data, e) => {
+        console.log(data.paymentMethod)
         if (data) {
 
             const getuse = userIdd
             if(getuse){
                 //setOdenishButton(true)
 
-            const fullData = {
-                billingAddress: {
-                    firstName: data.firstName,
-                    lastName: data.lastName,                    
-                    street1: data.street1,
-                    city: data.city,
-                    phone: data.phone,
-                    password: data.password,
-                    email: data.email,                    
-                    payment: "Card"
-                },
-                sponsorId: getuse,    
-                items: cartProducts.cartItems,
-                totalAmount: cartProducts.cartTotalAmount,
-                userWalletAmount: userWallet,
-                totalQuantity: cartProducts.cartQuantityTotal,
-                orderDate: new Date().toLocaleString(),
-            }
-            try {
-                // const payAndRegister = await checkOutRegister(fullData)
-                // console.log(payAndRegister)
+                const fullData = {
+                    billingAddress: {
+                        firstName: data.firstName,
+                        lastName: data.lastName,                    
+                        street1: data.street1,
+                        city: data.city,
+                        phone: data.phone,
+                        password: data.password,
+                        email: data.email,                    
+                        payment: "Card"
+                    },
+                    sponsorId: getuse,    
+                    items: cartProducts.cartItems,
+                    totalAmount: cartProducts.cartTotalAmount,
+                    userWalletAmount: userWallet,
+                    totalQuantity: cartProducts.cartQuantityTotal,
+                    orderDate: new Date().toLocaleString(),
+                }
+                try {
+                    
 
-                // if(userWallet === 0 || userWallet === null){
-                //     router.push('checkout/payment');
-                //     dispatch(addToOrder(fullData));
-                // }else if(userWallet > cartProducts.cartTotalAmount){
-                //     // fullData.totalAmount = userWallet-cartProducts.cartTotalAmount
-                //     router.push('checkout/balanspay');
-                //     dispatch(addToOrder(fullData));
-                // }else if(userWallet != 0 && userWallet < cartProducts.cartTotalAmount){
-                //     fullData.totalAmount = cartProducts.cartTotalAmount - userWallet
-                // }
+                    // if(userWallet === 0 || userWallet === null){
+                    //     router.push('checkout/payment');
+                    //     dispatch(addToOrder(fullData));
+                    // }else if(userWallet > cartProducts.cartTotalAmount){
+                    //     // fullData.totalAmount = userWallet-cartProducts.cartTotalAmount
+                    //     router.push('checkout/balanspay');
+                    //     dispatch(addToOrder(fullData));
+                    // }else if(userWallet != 0 && userWallet < cartProducts.cartTotalAmount){
+                    //     fullData.totalAmount = cartProducts.cartTotalAmount - userWallet
+                    // }
 
-                router.push('checkout/payment');
-                dispatch(addToOrder(fullData));
-                
+                    router.push('checkout/payment');
+                    dispatch(addToOrder(fullData));
+                    
 
-            } catch (error) {
-                console.log(error)
-            }
+                } catch (error) {
+                    console.log(error)
+                }
 
-        }else{
-            const fullData = {
-                billingAddress: {
-                    firstName: data.firstName,
-                    lastName: data.lastName,                    
-                    street1: data.street1,
-                    city: data.city,
-                    phone: data.phone,
-                    password: data.password,
-                    email: data.email,                    
-                    payment: "Card"
-                },
-                sponsorId: data.sponsor,    
-                items: cartProducts.cartItems,
-                totalAmount: cartProducts.cartTotalAmount,
-                totalQuantity: cartProducts.cartQuantityTotal,
-                orderDate: new Date().toLocaleString(),
-            }
-            try {
-                // const payAndRegister = await checkOutRegister(fullData)
-                // console.log(payAndRegister)
+            }else{
+                const fullData = {
+                    billingAddress: {
+                        firstName: data.firstName,
+                        lastName: data.lastName,                    
+                        street1: data.street1,
+                        city: data.city,
+                        phone: data.phone,
+                        password: data.password,
+                        email: data.email,                    
+                        payment: "Card"
+                    },
+                    sponsorId: data.sponsor,    
+                    items: cartProducts.cartItems,
+                    totalAmount: cartProducts.cartTotalAmount,
+                    totalQuantity: cartProducts.cartQuantityTotal,
+                    orderDate: new Date().toLocaleString(),
+                }
+                try {
+                    // const payAndRegister = await checkOutRegister(fullData)
+                    // console.log(payAndRegister)
 
-                router.push('checkout/payment');
-                dispatch(addToOrder(fullData));
+                    router.push('checkout/payment');
+                    dispatch(addToOrder(fullData));
 
-            } catch (error) {
-                console.log(error)
-            }
-        }
-            
-
-            
+                } catch (error) {
+                    console.log(error)
+                }
+            }            
         }
     }
 
@@ -300,11 +299,22 @@ const Checkout = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="order-payment-method">                                    
-                                    {/* <div className="single-payment">
-                                        <p style={{textDecoration:'underline',color:'#f00'}}>Yuxarıdakı cəmi məbləğ balansınızdan çıxılacaqdır</p>
-                                        <p>Balansınız : {userWallet} azn</p>
-                                    </div> */}
+                                <div className="order-payment-method">                                    {userIdd ? 
+                                    <div className="single-payment">
+                                        <p style={{
+                                            color:'#f00',
+                                            fontSize: '18px',
+                                            fontWeight: 'bold',
+                                            padding: '8px',
+                                            background: '#fff',
+                                            borderRadius: '10px',
+                                            border: '10px solid #7c55c1'
+                                            }}>Balansınız : {userWallet} azn</p>                                  
+                                    </div>
+
+                                    : ""}
+
+
                                     <div className="single-payment">
                                         <div className="input-group justify-content-between align-items-center">
                                             <input type="radio" {...register("paymentMethod")} id="paypal" defaultValue="card" defaultChecked/>
@@ -315,6 +325,10 @@ const Checkout = () => {
                                                 width={156}
                                                 alt="Paypal payment"
                                             />
+                                        </div>
+                                        <div className="input-group justify-content-between align-items-center">
+                                            <input type="radio" {...register("paymentMethod")} id="balans" defaultValue="balans" />
+                                            <label htmlFor="balans">Balansdan ödəniş</label>                                            
                                         </div>
                                         
                                     </div>

@@ -29,7 +29,7 @@ const Dashboard = () => {
     useEffect(()=>{
         const userId = localStorage.getItem("userid")
         const fridtoken = localStorage.getItem("fridtoken")
-        if(userId === fridtoken){
+        if(userId !== null && fridtoken !== null && userId === fridtoken){
             const fetchWallet = async () =>{
                 const getUserWallet =  await getWalletById(userId)
                 if(getUserWallet){
