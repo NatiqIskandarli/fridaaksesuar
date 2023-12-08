@@ -109,7 +109,6 @@ const Checkout = () => {
                 try {
                     
                     if(data.paymentMethod === "balans"){
-                        console.log(userWallet)
                         if(userWallet === 0 || userWallet === null || userWallet === ""){
                             router.push('checkout/payment');
                             dispatch(addToOrder(fullData));
@@ -166,13 +165,13 @@ const Checkout = () => {
         }
     }
 
-    // return (
-    //     <>
-    //     <HeaderTwo />
-    //     Texniki işlər gedir
-    //     <FooterTwo />
-    //     </>
-    // )
+    return (
+        <>
+        <HeaderTwo />
+        Texniki işlər gedir
+        <FooterTwo />
+        </>
+    )
 
     return ( 
         <>
@@ -331,12 +330,12 @@ const Checkout = () => {
                                                 alt="Paypal payment"
                                             />
                                         </div>
-                                        {/* {userIdd && userWallet != 0 ? 
+                                        {userIdd && userWallet != 0 ? 
                                         <div className="input-group justify-content-between align-items-center">
                                             <input type="radio" {...register("paymentMethod")} id="balans" defaultValue="balans" />
                                             <label htmlFor="balans">Balansdan ödəniş</label>                                            
                                         </div>
-                                        : "" } */}
+                                        : "" }
                                         
                                     </div>
                                 </div>                                
