@@ -121,7 +121,8 @@ export const getQrup = async(userId)=>{
         const month = currentDate.getMonth()+1;
         const tarix = year+'-'+month
 
-        const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
+        //const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
+        const {data} = await $host.get(`api/user/${userId}/downline`)
         return data
     } catch (error) {
         console.error('Error fetching qrup:', error);
@@ -131,7 +132,8 @@ export const getQrup = async(userId)=>{
 
 export const getQrupTarixce = async(userId,tarix)=>{
     try {
-        const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
+        //const {data} = await $host.get(`api/user/${userId}/downlineTest/${tarix}`)
+        const {data} = await $host.get(`api/user/${userId}/downlineTarixce/${tarix}`)
         return data
     } catch (error) {
         console.error('Error fetching qrup:', error);

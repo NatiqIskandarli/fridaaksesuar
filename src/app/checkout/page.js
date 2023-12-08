@@ -70,7 +70,6 @@ const Checkout = () => {
 
             const fetchProfit = async () =>{
                 try {
-                    console.log(userId,'wallet')
                     const getUserWallet =  await getWalletById(userId)
                     setUserWallet(getUserWallet.qaliq)
                 } catch (error) {
@@ -109,20 +108,26 @@ const Checkout = () => {
                 }
                 try {
                     
+                    if(data.paymentMethod === "balans"){
+                        console.log(userWallet)
+                        if(userWallet === 0 || userWallet === null || userWallet === ""){
+                            router.push('checkout/payment');
+                            dispatch(addToOrder(fullData));
+                        }else if(userWallet > cartProducts.cartTotalAmount){
+                            // fullData.totalAmount = userWallet-cartProducts.cartTotalAmount
+                            router.push('checkout/balanspay');
+                            dispatch(addToOrder(fullData));
+                        }else if(userWallet !== 0 && userWallet < cartProducts.cartTotalAmount){
+                            // fullData.totalAmount = cartProducts.cartTotalAmount - userWallet
+                            router.push('checkout/balanspayAndPay');
+                            dispatch(addToOrder(fullData));
+                        }
+                    }else{
+                        router.push('checkout/payment');
+                        dispatch(addToOrder(fullData));
+                    }
 
-                    // if(userWallet === 0 || userWallet === null){
-                    //     router.push('checkout/payment');
-                    //     dispatch(addToOrder(fullData));
-                    // }else if(userWallet > cartProducts.cartTotalAmount){
-                    //     // fullData.totalAmount = userWallet-cartProducts.cartTotalAmount
-                    //     router.push('checkout/balanspay');
-                    //     dispatch(addToOrder(fullData));
-                    // }else if(userWallet != 0 && userWallet < cartProducts.cartTotalAmount){
-                    //     fullData.totalAmount = cartProducts.cartTotalAmount - userWallet
-                    // }
-
-                    router.push('checkout/payment');
-                    dispatch(addToOrder(fullData));
+                    
                     
 
                 } catch (error) {
@@ -326,10 +331,12 @@ const Checkout = () => {
                                                 alt="Paypal payment"
                                             />
                                         </div>
+                                        {/* {userIdd && userWallet != 0 ? 
                                         <div className="input-group justify-content-between align-items-center">
                                             <input type="radio" {...register("paymentMethod")} id="balans" defaultValue="balans" />
                                             <label htmlFor="balans">Balansdan ödəniş</label>                                            
                                         </div>
+                                        : "" } */}
                                         
                                     </div>
                                 </div>                                
