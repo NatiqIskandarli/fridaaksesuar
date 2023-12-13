@@ -79,15 +79,18 @@ useEffect(()=>{
                 <Link href="/dashboard">Şəxsi kabinet</Link>
             }
             {isLogin === false && 
+              <>
                 <Link href="/sign-in">
                 Daxil ol   
               </Link>
-            }
-              
-               / 
+              / 
               <Link href="/qeydiyyat">
                  Qeydiyyat
               </Link>
+              </>
+            }
+              
+               
             </div>
           <div
             className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}

@@ -29,12 +29,13 @@ const SignUp = () => {
         }
         try {
             const checksponsor = await findSponsor(fullData) 
+            
             if(checksponsor.message){
                 setMesaj(checksponsor.message)
                 setOkMesaj('')
                 setOdenishButton(false)
             }else{
-                setOkMesaj(`${checksponsor.checkEmail.profile.firstName} ${checksponsor.checkEmail.profile.lastName}`)
+                setOkMesaj(`${checksponsor.checkEmail.firstName} ${checksponsor.checkEmail.lastName}`)
                 setMesaj('')
                 setOdenishButton(true)
             }
