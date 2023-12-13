@@ -77,6 +77,7 @@ const SignUp = () => {
                 try {
                     const boshRegister = await qeydiyyatKec(fullData)
                     localStorage.setItem("userid", boshRegister.user.id)
+                    alert(boshRegister.message)
                     router.push('/sign-in');
                 } catch (error) {
                     console.log(error)
