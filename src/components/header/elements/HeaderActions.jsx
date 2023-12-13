@@ -84,10 +84,10 @@ useEffect(()=>{
               </Link>
             }
               
-               {/* / 
-              <Link href="/sign-up">
+               / 
+              <Link href="/qeydiyyat">
                  Qeydiyyat
-              </Link> */}
+              </Link>
             </div>
           <div
             className={`my-account-dropdown ${accountDropdown ? "open" : ""}`}
