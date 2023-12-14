@@ -89,10 +89,7 @@ useEffect(()=>{
                
             </div>
 
-            <div className="text-center">
-            {isLogin === true && 
-                <Link href="/dashboard">Şəxsi kabinet</Link>
-            }
+            <div className="text-center">            
             {isLogin === false && 
               <>
               <Link href="/qeydiyyat">
