@@ -83,7 +83,18 @@ useEffect(()=>{
                 <Link href="/sign-in">
                 Daxil ol   
               </Link>
-              / 
+              </>
+            }
+              
+               
+            </div>
+
+            <div className="text-center">
+            {isLogin === true && 
+                <Link href="/dashboard">Şəxsi kabinet</Link>
+            }
+            {isLogin === false && 
+              <>
               <Link href="/qeydiyyat">
                  Qeydiyyat
               </Link>

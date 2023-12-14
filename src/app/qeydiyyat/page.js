@@ -63,27 +63,34 @@ const SignUp = () => {
 
     const checkoutFormHandler = async (data, e) => {
         if (data) {
+            if(data.password === data.tekrarpassword){
                 const fullData = {
                     billingAddress: {
                         firstName: data.firstName,
-                        lastName: data.lastName,                    
+                        lastName: data.lastName,
                         street1: data.street1,
                         city: data.city,
                         phone: data.phone,
                         password: data.password,
-                        email: data.email,                    
+                        email: data.email,
                     },
                     sponsorId: data.sponsor,
                 }
                 try {
                     const boshRegister = await qeydiyyatKec(fullData)
-                    localStorage.setItem("userid", boshRegister.user.id)
+                    console.log(boshRegister)
                     alert(boshRegister.message)
-                    router.push('/sign-in');
+                    if(boshRegister.user.id){
+                        localStorage.setItem("userid", boshRegister.user.id)
+                        router.push('/sign-in');
+                    }
+                    
                 } catch (error) {
                     console.log(error)
                 }
-                       
+            }else{
+                alert("Parollar uyğun gəlmir. Parolları doğru yazın")
+            }
         }
     }
 
@@ -139,6 +146,13 @@ const SignUp = () => {
                                             <label>Parol <span>*</span></label>
                                             <input type="password" {...register('password', { required: true, minLength: 6 })} />
                                             {errors.password && <p className="error">Minimum uzunluğu 6 olmalıdır</p>}
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-12">
+                                        <div className="form-group">
+                                            <label>Təkrar Parol <span>*</span></label>
+                                            <input type="password" {...register('tekrarpassword', { required: true, minLength: 6 })} />
+                                            {errors.tekrarpassword && <p className="error">Minimum uzunluğu 6 olmalıdır və parolu doğru yazdığınıza əmin olun</p>}
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
