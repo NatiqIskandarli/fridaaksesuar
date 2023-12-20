@@ -5,30 +5,21 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
-const Tarixce = () => {
-    const [userIdd, setUserIdd] = useState('')
+const TarixceId = ({params}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingIki, setIsLoadingIki] = useState(false)
     const [qrupOzu, setQrupOzu] = useState([])
     const [qrupSay, setQrupSay] = useState(0)
     const [altQrup, setAltQrup] = useState([])
-    const [tarixTap, setTarixTap] = useState('')
 
-    const axtarUser = async ()=>{
-        if(tarixTap === ''){
-            alert('Axtarmaq istədiyini tarixi seçin')
-        }else{
+    useEffect(()=>{
+        const fetchProfit = async () =>{
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();//noyabr
+            const tarix = year+'-'+month            
             setIsLoadingIki(true)
-            const yearMonth = tarixTap.substring(0, 7);
-            
-            // const currentDate = new Date();
-            // const year = currentDate.getFullYear();
-            // const month = currentDate.getMonth();//noyabr
-            // const tarix = year+'-'+month
-            
-            const userId = localStorage.getItem("userid")
-
-            const getQrupList =  await getQrupTarixce(userId,yearMonth)
+            const getQrupList =  await getQrupTarixce(params.id,tarix)
             if(getQrupList){
                 setIsLoading(true)
                 setIsLoadingIki(false)
@@ -36,61 +27,14 @@ const Tarixce = () => {
             setQrupOzu(getQrupList.sponsorunOzu)
             setQrupSay(getQrupList.downlineCount)
             setAltQrup(getQrupList.downlineUsers)
-
-
-        }        
-    }
-   
-
-    useEffect(()=>{
-        // const fetchProfit = async () =>{
-        //     const currentDate = new Date();
-        //     const year = currentDate.getFullYear();
-        //     const month = currentDate.getMonth();//noyabr
-        //     const tarix = year+'-'+month
-            
-        //     const userId = localStorage.getItem("userid")
-        //     setUserIdd(userId)
-
-        //     const getQrupList =  await getQrupTarixce(userId,tarix)
-        //     if(getQrupList){
-        //         setIsLoading(true)
-        //     }
-        //     setQrupOzu(getQrupList.sponsorunOzu)
-        //     setQrupSay(getQrupList.downlineCount)
-        //     setAltQrup(getQrupList.downlineUsers)
-        // }
-        // fetchProfit()
-        const userId = localStorage.getItem("userid")
-        setUserIdd(userId)
-    },[userIdd])
+        }
+        fetchProfit()
+    },[params])
 
 
 
     return ( 
         <>
-
-        <form className="account-details-form" style={{marginBottom: "35px"}}>
-            <div className="row">                
-                <div className="col-lg-12">
-                    <div className="form-group">
-                        <label>Tarix seçimi edin</label>
-                        <input type="date" className="form-control" onChange={(e)=>setTarixTap(e.target.value)}/>
-                        
-                    </div>
-                </div>
-                <div className="col-lg-12">
-                    <div className="form-group mb--0">
-                        <input type="button" 
-                        className="axil-btn" 
-                        value="Axtar" 
-                        onClick={axtarUser}
-                        style={{width:"150px",backgroundColor:"#7c55c1", color:"#fff"}}/>
-                    </div>
-                </div>
-            </div>
-        </form>
-
         {isLoadingIki ? <h3>Gözləyin...</h3> : ''}
 
         {isLoading ? 
@@ -140,7 +84,7 @@ const Tarixce = () => {
                     <div className="welcome-text">
                         {/* <button onClick={()=>altQrupCagir(val.id, val.email)}>Qrupa bax</button> */}
                         <Link 
-                        href={`tarixce/${val.id}`}
+                        href={`${val.id}`}
                         target="_blank"
                         className="qrupaBax"
                         >Qrupa bax</Link>
@@ -156,4 +100,4 @@ const Tarixce = () => {
      );
 }
  
-export default Tarixce;
+export default TarixceId;
